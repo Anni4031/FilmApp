@@ -20,10 +20,11 @@ export const api = {
 
 
         
-    "in_theaters":"/v2/movie/in_theaters",  //获取电影列表
+    "in_theaters":"/v2/movie/in_theaters",  //正在热映 获取电影列表
     "movieSearch":"/v2/movie/search", 
-    "coming_soon":"/v2/movie/coming_soon"      //电影搜索
-
+    "coming_soon":"/v2/movie/coming_soon" ,     //即将上映
+    "movietop":"/v2/movie/top250",  //排行250
+    
     }
     
 

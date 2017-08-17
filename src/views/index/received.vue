@@ -9,68 +9,81 @@
 		  <mt-tab-item id="2">即将上映</mt-tab-item>
 		</mt-navbar>
 		 
-		<!-- tab-container-->
+		
 		<mt-tab-container v-model="selected">
 		
 		  <mt-tab-container-item id="1">
-		   	<div class="in-movies-show" v-for="(item, index) in list" >
-				<div class="in-movies-show-child">
-			   		<div class="posters"><img :src="item.images.small" ></div>
-			   		<div class="movieMsg">
-			   		   <h2>{{ item.title }}</h2>
-			   		   <span :score="item.rating.average"></span>
-			   		   <p>{{ item.rating.average }}分</p>
-			   		   <p>导演:{{ item.directors[0].name}}</p>
-			   		   <!-- <p>
-			   		     主演:{{ item.casts[0].name}}
-			   		     <span v-if="item.casts[1]">, {{ item.casts[1].name }}</span>
-			   		   </p> -->
-			   		</div>
-			    </div>
-			</div>		
+		  <!-- <div class="content"> -->
+			<!--  -->
+			<div class="box" >
+				<div class="box_content" v-for="(item, index) in in_theaterslist">
+					<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
+					<div class="box_right">
+						<h2>{{ item.title }}</h2>
+						<Star :score="item.rating.average"></Star>
+						<span>{{ item.rating.average }}分</span><br>
+						<span class="daoyan">导演:{{ item.directors[0].name}}</span><br>
+						<span class="daoyan">
+							<span>
+								主演:<span v-for="(zhuyan, index) in item.casts">{{zhuyan.name}}
+										<span v-if="index===item.casts.length-1"></span>
+										<span v-else>/</span>
+									</span>
+							</span>
+							
+						</span>
+					</div>
+					<div class="btn"><mt-button type="danger" size="small">购票</mt-button></div>
+				</div>
+			</div>
+			<!-- </div> -->
 		  </mt-tab-container-item>
-
+		
 		  <mt-tab-container-item id="2">
-		   	<div  class="co-theaters-area">
-		   	      <div class="co-movies-wrap" >
-		   	        <div class="co-movies-show" v-for="(item, index) in coming_soonlist" >
-		   	          <div class="co-movies-show-child">
-		   	            <div class="co-posters"><img :src="item.images.small" :alt="item.alt"></div>
-		   	            <div class="co-movieMsg">
-		   	              <h2>{{ item.title }}</h2>
-		   	              <p>导演: {{ item.directors[0].name}}</p>
-		   	              <!-- <p>
-		   	                主演:{{ item.casts[0].name}}
-		   	                <span v-if="item.casts[1]">, {{ item.casts[1].name }}</span>
-		   	              </p> -->
-		   	              <p>类型: {{item.genres.join(', ')}}</p>
-		   	            </div>
-		   	          </div>
-		   	        </div>
-		   	</div>
-		   	 
+		   	<div class="box">
+				<div class="box_content" v-for="(soonitem, index) in coming_soonlist">
+					<div class="box_img"><img :src="soonitem.images.small" :alt="soonitem.alt"></div>
+					<div class="box_right">
+						<h2>{{ soonitem.title }}</h2>
+						<span class="daoyan">导演:{{ soonitem.directors[0].name}}</span><br>
+						<span>类型: {{soonitem.genres.join(', ')}}</span><br>
+						<span class="daoyan">
+							<span>
+								主演:<span v-for="(zhuyan, index) in soonitem.casts">{{zhuyan.name}}
+										<span v-if="index===soonitem.casts.length-1"></span>
+										<span v-else>/</span>
+									</span>
+							</span>
+							
+						</span>
+					</div>
+					<div class="btn"><mt-button type="primary" size="small">想看</mt-button></div>
+				</div>
+			</div> 
 		  </mt-tab-container-item>
 		</mt-tab-container> 
-
-		
-		
 	</div>
 </template>
 
 <script>
 import top from '../layout/header'
 import { api } from '../../global/api'
-// import film from '../layout/filming'
+import star from '../star/star'
+
+
 	export default {
 		name:'received',
 		components:{
-			Top:top
+			Top:top,
+			Star:star,
 		},
 		data(){
 			return {
-				list: null,
+				list: [],
 				selected:"1",
-				coming_soonlist:null
+				coming_soonlist:null,
+				in_theaterslist:null
+				
 			}
 		},
 		methods:{
@@ -78,21 +91,37 @@ import { api } from '../../global/api'
 				this.$http.get(api.in_theaters).then(function (response) {
 			        let data=response.body;
 			        let vm=this;
-			        vm.list = data.subjects;
+			        vm.in_theaterslist = data.subjects;
 			        console.log("in_theaters接口数据为:",response)
+			        // for(let i=0;i<=10;i++){
+			        // 	vm.list.push(vm.in_theaterslist[i])
+			        // }
+			        // console.log("111",vm.list)
+
 			    }).catch(function (response) {
 			          console.log(response)
-			    })
+			    });
 			    this.$http.get(api.coming_soon).then(function (response) {
-			        let coming_soondata=response.body;
+			        let data=response.body;
 			        let vm=this;
-			        vm.coming_soonlist = coming_soondata.subjects;
+			        vm.coming_soonlist = data.subjects;
 			        console.log("coming_soonlist接口数据为:",response)
 			    }).catch(function (response) {
 			          console.log(response)
-			    })
-			    
-			}
+			    });  
+			},
+			// loadMore() {
+			//   	this.loading = true;
+			//   	setTimeout(() => {
+			// 	    let last = this.in_theaterslist[this.list.length + 1];
+			// 	    for (let i = this.list.length - 1; i <= this.in_theaterslist.length; i++) {
+			// 	    	last = this.in_theaterslist[i];
+			// 	      	this.list.push(last);
+			// 	    }
+			// 	    this.loading = false;
+			// 	}, 1500);
+			//   	console.log("222",this.list)
+			// }
 		},
 		mounted(){
 			this.getData()
@@ -101,79 +130,58 @@ import { api } from '../../global/api'
 </script>
 
 <style scope>
-	.v-nav-bar {
-	    display: block;
-	    list-style: none;
-	    border-bottom: 0.2rem solid  #26A2FF;
-	  }
-	.v-nav {
-	    
-	    text-align: center;
-	    text-decoration: none;
-	    font-size: 1.3rem;
-	    color: #000;
+	.content{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		overflow-y: scroll;
+		overflow-x: hidden;
 	}
 	h2{
-		font-size: 1.0rem;
-		font-weight: 500;
+		font-size: 1.2rem;
 		margin-bottom: 10px;
 	}
-	
-	.in-movies-wrap {
-	  text-decoration: none;
-	  font-size: 0;
+	.box{
+		width: 100%;
+		height: 99%;
+		overflow: auto;
+		text-decoration: none;
 	}
-	.in-movies-show {
-	  background-color: #f8f8f8;
-	  padding: 10px 20px;
-	  box-sizing: border-box;
-	  cursor: pointer;
-	  font-size: 0;
+	.box_content{
+		background-color: #f8f8f8;
+		padding: 1% 4%;
+		box-sizing: border-box;
+		cursor: pointer;
+		clear: both;
+		border-bottom: 3% solid #d6d6d6;
 	}
-	.in-movies-show-child {
-	  display: flex;
-	  align-items: flex-end;
-	  padding-bottom: 10px;
-	  border-bottom: 1px solid #d6d6d6;
+	.box_img{
+		float: left;
+		width: 25%;
+		margin: 7% 3%;
 	}
-	.in-movies-show p {
-	  font-size: 14px;
-	  color: #666;
+	.box_right{
+		float: left;
+		width: 50%;
+		height: 40%;
+		padding-bottom: 0.3rem;
+		
 	}
-	.movieMsg {
-	  flex: 1;
-	  padding-left: 20px;
-	  vertical-align: top;
+	.box_right span{
+		font-size: 1.0rem;
+		color: #666;
+		
 	}
-	
-	.co-movies-wrap {
-	  text-decoration: none;
-	  font-size: 0;
+	.daoyan{
+		padding-left: 15px;
+		vertical-align: top;
+		font-size: 1.0rem;
 	}
-	.co-movies-show {
-	  background-color: #f8f8f8;
-	  cursor: pointer;
-	  font-size: 0;
-	  padding: 10px 20px;
-	}
-	.co-movies-show-child {
-	  display: flex;
-	  align-items: flex-end;
-	  padding-bottom: 10px;
-	  border-bottom: 1px solid #d6d6d6;
-	}
-	.co-movieMsg {
-	  flex: 1;
-	  padding-left: 20px;
-	  vertical-align: top;
-	}
-	.co-movieMsg h2 {
-	  font-size: 20px;
-	  font-weight: 500;
-	  margin-bottom: 10px;
-	}
-	.co-movies-show p {
-	  font-size: 14px;
-	  color: #666;
+	.btn{
+		float: left; 
+		margin-top: 18%;
+		margin-left: 3%;
 	}
 </style>

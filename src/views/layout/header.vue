@@ -19,8 +19,10 @@
 </script>
 
 <style scope>
+
 	.mint-search{
 		height: 5%;
+		
 	}
 	.mint-searchbar{
 		padding: 7px 7px;
