@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import store from '../store/index'
+import store from '../../store/index'
 	export default {
 		name:'login',
 		data(){
@@ -61,19 +61,8 @@ import store from '../store/index'
 					}, 2000);
 					
 				}
-			},
-			a(){
-				var GB2312UnicodeConverter = {
-		            ToUnicode: function (str) {
-		                return escape(str).toLocaleLowerCase().replace(/%u/gi, '\\u');
-		            }
-		            , ToGB2312: function (str) {
-		                return unescape(str.replace(/\\u/gi, '%u'));
-		            }
-			    };
-				let unicode='\u7ea6\u7ff0\u00b7C\u00b7\u8d56\u5229';
-				document.write('Unicode代码转换为汉字：' + GB2312UnicodeConverter.ToGB2312(unicode));
 			}
+			
 		}
 	}
 </script>

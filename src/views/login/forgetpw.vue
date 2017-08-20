@@ -1,7 +1,6 @@
 <template>
 	<div>
-		<back></back>
-		<br>
+		
 		<h1>找回密码</h1>
 		<div class="box">
 			<mt-field placeholder="邮箱" type="email" v-model="email"></mt-field>
@@ -11,12 +10,9 @@
 </template>
 
 <script>
-import Back from './layout/back'
 	export default {
 		name:'forgetpw',
-		components:{
-			back:Back
-		},
+		
 		data(){
 			return {
 				email:"",

@@ -10,6 +10,7 @@ import 'mint-ui/lib/style.css'
 import store from './store/index'
 
 Vue.config.productionTip = false
+Vue.config.silent = true
 
 Vue.use(Vuex)
 Vue.use(VueResource)

@@ -1,7 +1,6 @@
 <template>
 	<div>
-		<back></back>
-		<br>
+		
 		<h1>欢迎加入酷电影</h1>
 		
 		<div class="box">
@@ -21,13 +20,9 @@
 </template>
 
 <script>
-import Back from './layout/back'
-import store from '../store/index'
+import store from '../../store/index'
 	export default {
 		name:'register',
-		components:{
-			back:Back
-		},
 		data(){
 			return {
 				reg:{
@@ -37,17 +32,17 @@ import store from '../store/index'
 				},
 				user:store.state.user.userInfo,
 				checked:false,
-				status:'disabled'		
+				status:true		
 			}
 		},
 		methods:{
 			change(){
 				if(this.checked){
-					this.status=null;
+					this.status=false;
 					console.log("改变成功")
 				}
 				else{
-					this.status='disabled'
+					this.status=true
 				}
 			},
 			regClick(){

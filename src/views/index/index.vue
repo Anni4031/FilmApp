@@ -5,6 +5,7 @@
 		
 		<div class="footer">
 			<mt-tabbar v-model="selected">
+			
 			  <mt-tab-item id="热映">
 			    <router-link to="/index/received">
 			    	<i class="fa fa-film" aria-hidden="true"></i> <br><span class="font">热映</span>
@@ -47,7 +48,7 @@
 	}
 	.font{
 		text-decoration: none;
-		color:  #26A2FF;
+		color: #e54847;
 		
 	}
 	a{
@@ -56,7 +57,7 @@
 
 	a:visited{
 		text-decoration: none;
-		color:  #26A2FF;
+		color: #e54847;
 	}
 	.footer{
 		display: flex;
@@ -71,43 +72,5 @@
 	    background: #fff;
 	    border-top: 1px solid #e4e4e4;
 	}
-	
-	/* .m-tabbar{
-	    display: flex;
-	    flex-direction: row;
-	    position: fixed;
-	    bottom: 0;
-	    left: 0;
-	    right: 0;
-	    width: 100%;
-	    overflow: hidden;
-	    height: 50px;
-	    background: #fff;
-	    border-top: 1px solid #e4e4e4;
-	    
-	    .m-tabbar-item{
-	      flex: 1;
-	      text-align: center;
-	      .m-tabbar-item-icon{
-	          display: block;
-	          padding-top: 2px;
-	          img{
-	              width: 28px;
-	              height: 28px;
-	          }
-	      }
-	      .m-tabbar-item-text{
-	          display: block;
-	          font-size: 1.0rem;
-	          color:#949494;
-	      }
-	      &.is-active{
-	          .m-tabbar-item-text{
-	          	text-decoration: none;
-	            color: #42bd56;
-	          }
-	      }
-	  }
-	} */
 	
 </style>

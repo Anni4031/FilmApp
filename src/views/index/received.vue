@@ -2,21 +2,19 @@
 	<div class="received">
 		
 		<Top></Top>
-		
-		
+		<lb :listImg="listImg"></lb>
+	
+		<div class="container">
 		<mt-navbar v-model="selected">
 		  <mt-tab-item id="1">正在热映</mt-tab-item>
 		  <mt-tab-item id="2">即将上映</mt-tab-item>
 		</mt-navbar>
 		 
-		
 		<mt-tab-container v-model="selected">
 		
 		  <mt-tab-container-item id="1">
-		  <!-- <div class="content"> -->
-			<!--  -->
-			<div class="box" >
-				<div class="box_content" v-for="(item, index) in in_theaterslist">
+			<div class="box">
+				<div class="box_content" v-for="(item, index) in in_theaterslist" @click="showMoreMsg(item.id)">
 					<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
 					<div class="box_right">
 						<h2>{{ item.title }}</h2>
@@ -30,20 +28,19 @@
 										<span v-else>/</span>
 									</span>
 							</span>
-							
 						</span>
 					</div>
 					<div class="btn"><mt-button type="danger" size="small">购票</mt-button></div>
 				</div>
 			</div>
-			<!-- </div> -->
+			
 		  </mt-tab-container-item>
 		
 		  <mt-tab-container-item id="2">
 		   	<div class="box">
-				<div class="box_content" v-for="(soonitem, index) in coming_soonlist">
+				<div class="box_content" v-for="(soonitem, index) in coming_soonlist" >
 					<div class="box_img"><img :src="soonitem.images.small" :alt="soonitem.alt"></div>
-					<div class="box_right">
+					<div class="box_right"  @click="showMoreMsg(soonitem.id)">
 						<h2>{{ soonitem.title }}</h2>
 						<span class="daoyan">导演:{{ soonitem.directors[0].name}}</span><br>
 						<span>类型: {{soonitem.genres.join(', ')}}</span><br>
@@ -53,19 +50,30 @@
 										<span v-if="index===soonitem.casts.length-1"></span>
 										<span v-else>/</span>
 									</span>
-							</span>
-							
+							</span>	
 						</span>
 					</div>
-					<div class="btn"><mt-button type="primary" size="small">想看</mt-button></div>
+					<div class="btn">
+						<mt-button type="primary" size="small" :disabled="status" v-model="text" @click="btnclick(index)" v-if="indexarr.indexOf(index)!==-1">{{text}}</mt-button>
+						<mt-button type="primary" size="small" v-model="text" @click="btnclick(index)" v-else>想看</mt-button>
+					</div>
 				</div>
 			</div> 
 		  </mt-tab-container-item>
 		</mt-tab-container> 
+		</div>
 	</div>
 </template>
 
 <script>
+//导入Banner组件
+ import Banner from '../layout/Banner'
+ //导入图片
+ import a from '../../assets/images/a.jpg'
+ import b from '../../assets/images/b.jpg'
+ import c from '../../assets/images/c.jpg'
+ import d from '../../assets/images/d.jpg'
+
 import top from '../layout/header'
 import { api } from '../../global/api'
 import star from '../star/star'
@@ -76,13 +84,21 @@ import star from '../star/star'
 		components:{
 			Top:top,
 			Star:star,
+			lb:Banner
+			
 		},
 		data(){
 			return {
+				listImg: [
+                	{url: a}, {url: b}, {url: c},{url:d}
+                ],
 				list: [],
 				selected:"1",
 				coming_soonlist:null,
-				in_theaterslist:null
+				in_theaterslist:null,
+				text:"想看",
+				status:false,
+				indexarr:[]
 				
 			}
 		},
@@ -93,11 +109,6 @@ import star from '../star/star'
 			        let vm=this;
 			        vm.in_theaterslist = data.subjects;
 			        console.log("in_theaters接口数据为:",response)
-			        // for(let i=0;i<=10;i++){
-			        // 	vm.list.push(vm.in_theaterslist[i])
-			        // }
-			        // console.log("111",vm.list)
-
 			    }).catch(function (response) {
 			          console.log(response)
 			    });
@@ -110,18 +121,18 @@ import star from '../star/star'
 			          console.log(response)
 			    });  
 			},
-			// loadMore() {
-			//   	this.loading = true;
-			//   	setTimeout(() => {
-			// 	    let last = this.in_theaterslist[this.list.length + 1];
-			// 	    for (let i = this.list.length - 1; i <= this.in_theaterslist.length; i++) {
-			// 	    	last = this.in_theaterslist[i];
-			// 	      	this.list.push(last);
-			// 	    }
-			// 	    this.loading = false;
-			// 	}, 1500);
-			//   	console.log("222",this.list)
-			// }
+			showMoreMsg: function (str) {
+			  const path = '/moviemsg/' + str
+			  this.$router.push({path: path})
+			},
+			btnclick(index){
+				this.indexarr.push(index)
+				if(this.text=="想看"){
+					this.status=true;
+					this.text="已想看"
+				}
+			}
+			
 		},
 		mounted(){
 			this.getData()
@@ -130,14 +141,12 @@ import star from '../star/star'
 </script>
 
 <style scope>
-	.content{
+	.container{
 		position: absolute;
-		top: 0;
-		bottom: 0;
+		top: 37%;
 		left: 0;
 		right: 0;
-		overflow-y: scroll;
-		overflow-x: hidden;
+		bottom: 0;
 	}
 	h2{
 		font-size: 1.2rem;
@@ -151,28 +160,25 @@ import star from '../star/star'
 	}
 	.box_content{
 		background-color: #f8f8f8;
-		padding: 1% 4%;
+		padding: 1% 1%;
 		box-sizing: border-box;
 		cursor: pointer;
-		clear: both;
-		border-bottom: 3% solid #d6d6d6;
+		display: flex;
+		border-bottom: 1px solid #d6d6d6;
 	}
 	.box_img{
-		float: left;
 		width: 25%;
-		margin: 7% 3%;
+		margin: 8% 1%;
 	}
 	.box_right{
-		float: left;
-		width: 50%;
+		width: 45%;
 		height: 40%;
+		padding-top: 3%;
 		padding-bottom: 0.3rem;
-		
 	}
 	.box_right span{
 		font-size: 1.0rem;
-		color: #666;
-		
+		color: #666;	
 	}
 	.daoyan{
 		padding-left: 15px;
@@ -180,8 +186,12 @@ import star from '../star/star'
 		font-size: 1.0rem;
 	}
 	.btn{
-		float: left; 
+		flex: 1;
 		margin-top: 18%;
 		margin-left: 3%;
+	}
+	.mint-navbar .mint-tab-item.is-selected{
+		border-bottom: 3px solid #e54847;
+    	color: #e54847;
 	}
 </style>

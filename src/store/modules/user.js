@@ -7,8 +7,6 @@ const user = {
   },
 
   mutations: {
-      //提交用户信息方法，state是当前vuex实例下user的state，
-      //newUserInfo是触发SET_USERINFO方法时的入参
       SET_USERINFO: (state, newUserInfo) => {
         state.userInfo.push (newUserInfo[0]) ;
         console.log('用户信息为:',state.userInfo)
