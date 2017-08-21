@@ -1,10 +1,10 @@
 <template>
 	<div class="result">
 		<top></top>
-		<h1 class="title">'{{val}}'的搜索结果, 共{{search_result.total}}条信息</h1>
+		<h1 class="title">'{{val.q}}'的搜索结果,共{{search_result.total}}条信息 </h1><!--  -->
 		<div  class="res-theaters-area">
 		  <div class="res-movies-wrap" >
-		    <div class="res-movies-show" v-for="(item, index) in search_result.subjects" @click="serch(item.id)">
+		    <div class="res-movies-show" v-for="(item, index) in search_result.subjects" @click="search(item.id)">
 		      <div class="res-movies-show-child">
 		        <div><img :src="item.images.small" :alt="item.alt"></div>
 		        <div class="res-movieMsg">
@@ -24,36 +24,12 @@
 import top from '../layout/header'
 import star from '../star/star'
 import {api } from '../../global/api'
+import store from '../../store/index'
   export default {
     data () {
       return {
-        val: '',
+        val: store.state.search.searchval,
         search_result: {
-          total: '',
-          subjects: [{
-            rating: {
-              max: '',
-              average: ''
-            },
-            genres: [],
-            title: '',
-            year: '',
-            images: {
-              small: '',
-              large: '',
-              medium: ''
-            },
-            directors: [{
-              name: ''
-            }],
-            casts: [{
-              name: '',
-              id: ''
-            }],
-            collect_count: '',
-            alt: '',
-            id: ''
-          }]
         }
       }
     },
@@ -69,20 +45,15 @@ import {api } from '../../global/api'
     },
     methods: {
       showMoreMsg: function () {
-        this.val = this.$route.query.name
-        let par = {
-            "q": this.val,         //明星、导演姓名
-            // "tag": vm.listQuery.type,       //类型
-        };
-        const searchUrl =api.movieSearch
-        this.$http.get(searchUrl,{params: par}).then(function (response) {
+        let par=JSON.parse(JSON.stringify(this.val))
+        this.$http.get(api.movieSearch,{params: par}).then(function (response) {
           this.search_result = response.body
           console.log(response)
         }).catch(function (response) {
           console.log(response)
         })
       },
-      serch: function (str) {
+      search: function (str) {
         const path = '/moviemsg/' + str
         this.$router.push({path: path})
       }
@@ -99,7 +70,7 @@ import {api } from '../../global/api'
     font-size: 0;
   }
   .res-movies-show {
-    padding: 10px 20px;
+    padding: 4% 8%;
     background-color: #f8f8f8;
     cursor: pointer;
     font-size: 0;
@@ -107,29 +78,29 @@ import {api } from '../../global/api'
   .res-movies-show-child {
     display: flex;
     align-items: center;
-    padding-bottom: 10px;
+    padding-bottom: 4%;
     border-bottom: 1px solid #d6d6d6;
   }
   .res-movieMsg {
     flex: 1;
-    padding-left: 20px;
+    padding-left: 8%;
     vertical-align: top;
   }
   .res-movieMsg h2 {
-    font-size: 18px;
+    font-size: 1.3rem;
     font-weight: 500;
-    margin-bottom: 5px;
+    margin-bottom: 3%;
   }
   .res-movies-show p {
-    font-size: 14px;
+    font-size: 0.8rem;
     line-height: 2;
     color: #666;
   }
   .title {
-    font-size: 20px;
+    font-size: 1.4rem;
     font-weight: 700;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 4%;
+    padding-bottom: 4%;
     text-align: center;
     background-color: #f2fbfb;
   }

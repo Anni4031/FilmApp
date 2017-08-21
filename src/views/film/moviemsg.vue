@@ -59,15 +59,18 @@
 
       <section class="msg-duanping">
         <h3>热门短评</h3>
-        <div v-for="item in movieMsg.comments">
-          <div class="msg-rating">
-            <star :score="item.rating.value*2"></star>
-            <span>{{item.created_at}}</span>
-          </div>
-          <p class="author-content">{{item.content}}</p>
+        <div class="comment" v-for="(item,index) in comments" v-if="index<8">
           <div class="author-img">
             <img :src="item.author.avatar" :alt="item.author.alt">
             <span>{{item.author.name}}</span>
+          </div>
+
+          <div>
+            <div class="msg-rating">
+              <star :score="item.rating.value*2"></star>
+              <span>{{item.created_at}}</span>
+            </div>
+            <p class="author-content">{{item.content}}</p>
           </div>
         </div>
         <p @click="smallComment(movieMsg.id)" class="msg-all-Comment">查看全部短论</p>
@@ -88,105 +91,9 @@ import { api } from '../../global/api'
       return {
         guodu: true,
         movieMsg: {
-          'rating': {
-            'max': '',
-            'average': '',
-            'details': {
-              '1': '',
-              '3': '',
-              '2': '',
-              '5': '',
-              '4': ''
-            },
-            'stars': '',
-            'min': 0
-          },
-          trailer_urls: [],
-          collect_count: '',
-          'wish_count': '',
-          'reviews_count': '',
-          'images': {
-            'small': '',
-            'large': '',
-            'medium': ''
-          },
-          'alt': '',
-          'year': '',
-          'pubdates': [],
-          'id': '',
-          'pubdate': '',
-          'title': '',
-          'languages': [],
-          'countries': [],
-          'writers': [{
-              'avatars': {
-                'small': '',
-                'large': '',
-                'medium': ''
-              },
-              'name_en': '',
-              'name': '',
-              'alt': '',
-              'id': ''
-            },
-            {
-              'avatars': {
-                'small': '',
-                'large': '',
-                'medium': ''
-              },
-              'name_en': '',
-              'name': '',
-              'alt': '',
-              'id': ''
-            }
-          ],
-          'casts': [
-            {
-              'avatars': {
-                'small': '',
-                'large': '',
-                'medium': ''
-              },
-              'name_en': '',
-              'name': '',
-              'alt': '',
-              'id': ''
-            }
-          ],
-          'summary': '',
-          'directors': [
-            {
-              'avatars': {
-                'small': '',
-                'large': '',
-                'medium': ''
-              },
-              'name_en': '',
-              'name': '',
-              'alt': '',
-              'id': ''
-            }
-          ],
-          'durations': [],
-          'genres': [],
-          comments: [{
-            rating: {
-              max: '',
-              min: '',
-              value: ''
-            },
-            author: {
-              uid: '',
-              avatar: '',
-              name: ''
-            },
-            content: '',
-            create_at: ''
-          }],
-          comments_count: '',
-          popular_reviews: ''
-        }
+          
+        },
+        comments:{}
       }
     },
     
@@ -202,10 +109,11 @@ import { api } from '../../global/api'
         }).catch(function (response) {
                 console.log(response)
         });
-        this.$http.get(api.movie_basic + this.$route.params.id+"/comments" ).then(function (response) {
+        this.$http.get(api.movie_basic + this.$route.params.id+"/comments?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
               const _this = this
-               _this.movieMsg.comments = response.body
+               _this.comments = response.body.comments
               console.log("movie_comments接口数据为:",response)
+              console.log("comments:",_this.comments)
         }).catch(function (response) {
                 console.log(response)
         });
@@ -317,9 +225,14 @@ import { api } from '../../global/api'
     text-overflow:ellipsis;
   }
   .msg-duanping {
-    padding: 6%;
+
+    padding: 1%;
     box-sizing: border-box;
   }
+  .comment{
+    display: flex;
+  }
+
   .msg-star-wrap h3,
   .msg-duanping h3 {
     color: #666;
@@ -331,9 +244,12 @@ import { api } from '../../global/api'
     color: #333;
     margin-bottom: 10%;
     margin-top: 10%;
+    font-size: 0.8rem;
   }
   .author-img {
-    margin-bottom: 10%;
+    flex: 1;
+    margin-bottom: 5%;
+    
     border-bottom: 1% solid #d6d3d3;
   }
   .author-img:last-child {
@@ -341,17 +257,19 @@ import { api } from '../../global/api'
   }
   .author-img img {
     border-radius: 50%;
+    margin-right: 3%;
   }
   .author-img span {
     vertical-align: 30%;
     margin-left: 5%;
     color: #999;
+    font-size: 1.0rem;
   }
   .msg-all-Comment {
     color: #e54847;
     font-weight: lighter;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     height: 30%;
     border-bottom: 1% solid #d6d3d3;
   }

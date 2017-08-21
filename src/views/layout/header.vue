@@ -1,13 +1,12 @@
 <template>
 	<div class="v-header">
         <div class="v-header-logo">
-	        <img src="../../assets/images/logo.jpg" width="20%">
+	        <img src="../../assets/images/logo.jpg" width="20%" style="margin-top:3%;">
 	        <span>酷电影</span>
-			<div class="v-load-title">查影讯，上酷电影！</div>
         </div>
         
 		<div @click="to"  class="v-header-input">
-			<mt-search  v-model="value"  cancel-text="取消"  placeholder=" 电影 / 电视剧 / 影人"></mt-search>
+			<mt-search  v-model="value"  cancel-text="取消"  placeholder=" 影片类型 / 明星、导演姓名"></mt-search>
 		</div> 
 		
     </div>
@@ -34,25 +33,18 @@
 	.v-header {
 	  display: flex;
 	  height: 30%;
-	  padding: 2% 2%;
 	  box-sizing: border-box;
 	}
 	.v-header-logo {
-	  width: 45%;
+	  width: 30%;
 	}
 	.v-header-logo img{
-		float: left;
-		margin-right: 2%;
+		
 	}
 	.v-header-logo span{
 		font-size: 1.2rem;
 		font-weight: bold;
 		color: #df2d2d;
-	}
-	.v-load-title{
-		font-size: 1.0rem;
-		line-height: 100%;
-		padding-top: 5%;
 	}
 	.v-header-input {
 	  flex: 1;

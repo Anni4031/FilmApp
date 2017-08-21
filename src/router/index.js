@@ -12,6 +12,8 @@ import Moviemsg from '../views/film/moviemsg'
 import Searchpage from '../views/search/searchpage'
 import SearchResult from '../views/search/searchResult'
 import Starmsg from '../views/celebrity/starMsg'
+import smallComment from '../views/comments/smallComment'
+import comment from '../views/comments/comment'
 
 Vue.use(Router)
 
@@ -76,6 +78,15 @@ export default new Router({
       name:'starmsg',
       component:Starmsg
     },
-    
+    {
+      path: '/smallComment/:id',
+      name: 'smallComment',
+      component: smallComment
+    },
+    {
+      path: '/comment/:id',
+      name: 'comment',
+      component: comment
+    },
   ]
 })

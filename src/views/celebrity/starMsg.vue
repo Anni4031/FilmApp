@@ -49,39 +49,6 @@ import {api } from '../../global/api'
       return {
         guodu: true,
         starMsg: {
-          name: '',
-          name_en: '',
-          works: [
-            {
-              roles: [],
-              subject: {
-                rating: {
-                  max: '',
-                  average: ''
-                },
-                collect_count: '',
-                original_title: '',
-                title: '',
-                images: {
-                  small: '',
-                  large: '',
-                  medium: ''
-                },
-                alt: '',
-                year: '',
-                id: ''
-              }
-            }
-          ],
-          avatars: {
-            small: '',
-            large: '',
-            medium: ''
-          },
-          alt: '',
-          gender: '',
-          id: '',
-          born_place: ''
         }
       }
     },

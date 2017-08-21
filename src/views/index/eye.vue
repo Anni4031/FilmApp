@@ -1,84 +1,54 @@
 <template>
 	<div class="eye">
 		<Top></Top>
-		<!-- <mt-navbar v-model="selected">
-		  <mt-tab-item id="1">电影</mt-tab-item>
-		  <mt-tab-item id="2">电视</mt-tab-item>
-		</mt-navbar> -->
-		<mt-navbar v-model="selected">
-		  <mt-tab-item id="1">电影</mt-tab-item>
-		  <mt-tab-item id="2">电视</mt-tab-item>
-		</mt-navbar>
+		<lb :listImg="listImg"></lb>
+		<div  class="container" >
+			<mt-navbar v-model="selected">
+			  <mt-tab-item id="1">电影</mt-tab-item>
+			  <mt-tab-item id="2">电视</mt-tab-item>
+			</mt-navbar>
+			<mt-tab-container v-model="selected">
+			  <mt-tab-container-item id="1">
+					<header>{{title1}}</header>
+					<div class="box">	
+				    	<div class="box_content" v-for="(item, index) in toplist" @click="showMoreMsg(item.id)">
+				    		<div class="number">{{ index+1 }}</div>
+				    		<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
+				    		<div class="box_right">
+				    			<h2>{{ item.title }}</h2>
+				    			<Star :score="item.rating.average"></Star>
+				    			<span>{{ item.rating.average }}分</span><br>
+				    		</div>
+				    	</div>
+					</div>
+			  </mt-tab-container-item>
+			
+			  <mt-tab-container-item id="2">
+			  	<div>
 
-		
-		<!-- <mt-tab-container v-model="selected">
+				   	<header>近期值得看的国产剧</header>
+			  		<div class="box" >
+			  			
+		   		    	
+			   		</div>
 
-		  	<mt-tab-container-item id="1">  
-			    <header>{{title1}}</header>
-			    <div class="box">	
-			    	<div class="box_content" v-for="(item, index) in toplist" @click="showMoreMsg(item.id)">
-			    		<div class="number">{{ index+1 }}</div>
-			    		<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
-			    		<div class="box_right">
-			    			<h2>{{ item.title }}</h2>
-			    			<Star :score="item.rating.average"></Star>
-			    			<span>{{ item.rating.average }}分</span><br>
-			    		</div>
-			    	</div>
-			    </div>
-		  </mt-tab-container-item>
-
-		  <mt-tab-container-item id="2">
-		   		<header>{{title2}}</header>
-		  		<div class="box" >
-	   		    	<div  class="bangdan" v-for="(boxitem, index) in boxlist" @click="showMoreMsg(boxitem.id)">
-	   		    		<div class="box_img">{{ index+1 }}<img :src="boxitem.images.small" :alt="boxitem.alt"></div>
-	   		    		<div class="box_right">
-	   		    			<h2>{{ boxitem.title }}</h2>
-	   		    			<Star :score="item.rating.average"></Star>
-		    				<span>{{ item.rating.average }}分</span>
-	   		    		</div>
-	   		    	</div>
 		   		</div>
-		  </mt-tab-container-item>
-
-		</mt-tab-container> -->
-		<mt-tab-container v-model="selected">
-		
-		  <mt-tab-container-item id="1">
-		  	<div>
-				<header>{{title1}}</header>
-				<div class="box">	
-			    	<div class="box_content" v-for="(item, index) in toplist" @click="showMoreMsg(item.id)">
-			    		<div class="number">{{ index+1 }}</div>
-			    		<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
-			    		<div class="box_right">
-			    			<h2>{{ item.title }}</h2>
-			    			<Star :score="item.rating.average"></Star>
-			    			<span>{{ item.rating.average }}分</span><br>
-			    		</div>
-			    	</div>
-				</div>
-			</div>
-		  </mt-tab-container-item>
-		
-		  <mt-tab-container-item id="2">
-		  	<div>
-
-			   	<header>近期值得看的国产剧</header>
-		  		<div class="box" >
-		  			
-	   		    	
-		   		</div>
-
-	   		</div>
-		  </mt-tab-container-item>
-		</mt-tab-container> 
-		
+			  </mt-tab-container-item>
+			</mt-tab-container> 
+		</div>
 	</div>
 </template>
 
 <script>
+//导入Banner组件
+ import Banner from '../layout/Banner'
+ //导入图片
+ import a from '../../assets/images/01.jpg'
+ import b from '../../assets/images/02.jpg'
+ import c from '../../assets/images/03.jpg'
+ import d from '../../assets/images/04.jpg'
+ import e from '../../assets/images/05.jpg'
+
 import top from '../layout/header'
 import { api } from '../../global/api'
 import star from '../star/star'
@@ -88,6 +58,7 @@ import star from '../star/star'
 		components:{
 			Top:top,
 			Star:star,
+			lb:Banner
 		},
 		data(){
 			return {
@@ -95,7 +66,10 @@ import star from '../star/star'
 				toplist:null,
 				title1:null,
 				boxlist:null,
-				boxdata:null
+				boxdata:null,
+				listImg: [
+                	{url: a}, {url: b}, {url: c},{url:d},{url:e}
+                ],
 			}
 		},
 		methods:{
@@ -110,17 +84,7 @@ import star from '../star/star'
 			    }).catch(function (response) {
 			          console.log(response)
 			    });
-			    this.$http.get(api.movie_box).then(function (response) {
-			    	let data=response.body;
-			        this.boxdata=response.body;
-			        this.title2=data.title;
-			        let vm=this;
-			        vm.boxlist = data.subjects;
-			        console.log("movie_box接口数据为:",response)
-			        
-			    }).catch(function (response) {
-			          console.log(response)
-			    });
+			    
 			   
 			},
 			showMoreMsg: function (str) {
@@ -141,13 +105,21 @@ import star from '../star/star'
 	}
 	header{
 		font-size: 1.2rem;
-		float: left;
+		width: 100%;
 		font-weight: bold ;
 		padding: 2%;
+		text-align: left;
+	}
+	.container{
+		position: absolute;
+		top: 38%;
+		left: 0;
+		right: 0;
+		bottom: 0;
 	}
 	.box{
 		width: 100%;
-		height: 99%;
+		height: 100%;
 		overflow: auto;
 		text-decoration: none;
 	}

@@ -51,6 +51,7 @@
 										<span v-else>/</span>
 									</span>
 							</span>	
+
 						</span>
 					</div>
 					<div class="btn">
@@ -173,7 +174,7 @@ import star from '../star/star'
 	.box_right{
 		width: 45%;
 		height: 40%;
-		padding-top: 3%;
+		padding-top: 1%;
 		padding-bottom: 0.3rem;
 	}
 	.box_right span{
