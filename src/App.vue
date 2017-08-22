@@ -20,4 +20,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+.mint-tab-item-label{
+    font-size: 1.2rem;
+  }
 </style>

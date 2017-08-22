@@ -22,6 +22,10 @@ export const api = {
     "movietop":"/v2/movie/top250",  //排行250
     "movie_basic":"/v2/movie/subject/", //电影条目
     "movie_box":"/v2/movie/us_box", //北美榜
-    "movie_celebrity":"/v2/movie/celebrity/" //影人信息
+    "movie_celebrity":"/v2/movie/celebrity/", //影人信息
+    "new_movies":"/v2/movie/new_movies",//新片榜
+    "movie_weekly":"/v2/movie/weekly",//口碑榜
+
+
 }
 

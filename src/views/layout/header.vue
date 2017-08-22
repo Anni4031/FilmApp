@@ -29,7 +29,7 @@
 	}
 </script>
 
-<style scope>
+<style scoped>
 	.v-header {
 	  display: flex;
 	  height: 30%;

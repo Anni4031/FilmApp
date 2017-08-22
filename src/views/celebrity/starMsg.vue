@@ -49,13 +49,19 @@ import {api } from '../../global/api'
       return {
         guodu: true,
         starMsg: {
+          avatars: {
+            small: '',
+            large: '',
+            medium: ''
+          },
         }
       }
     },
     components: { star},
     mounted: function () {
-      this.$http.jsonp(api.movie_celebrity + this.$route.params.id).then(function (response) {
+      this.$http.get(api.movie_celebrity + this.$route.params.id).then(function (response) {
             this.starMsg = response.body
+            console.log(response)
             console.log("movie_celebrity接口数据为:"+response)
           })
           .catch(function (response) {
@@ -74,7 +80,7 @@ import {api } from '../../global/api'
   }
 </script>
 
-<style>
+<style scoped>
   .i{
     float: left;
     padding-top: 1%;

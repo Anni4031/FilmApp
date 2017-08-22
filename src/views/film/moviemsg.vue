@@ -61,16 +61,16 @@
         <h3>热门短评</h3>
         <div class="comment" v-for="(item,index) in comments" v-if="index<8">
           <div class="author-img">
-            <img :src="item.author.avatar" :alt="item.author.alt">
+            <img :src="item.author.avatar" :alt="item.author.alt"><br>
             <span>{{item.author.name}}</span>
           </div>
 
-          <div>
+          <div class="comment_right">
             <div class="msg-rating">
               <star :score="item.rating.value*2"></star>
               <span>{{item.created_at}}</span>
             </div>
-            <p class="author-content">{{item.content}}</p>
+            <span class="author-content">{{item.content}}</span>
           </div>
         </div>
         <p @click="smallComment(movieMsg.id)" class="msg-all-Comment">查看全部短论</p>
@@ -89,11 +89,47 @@ import { api } from '../../global/api'
     },
     data () {
       return {
-        guodu: true,
         movieMsg: {
-          
-        },
-        comments:{}
+          'rating': {
+            'average': '',
+          },
+          'images': {
+            'small': '',
+            'medium': ''
+          },
+          'casts': [
+            {
+              'avatars': {
+                'small': '',
+                'medium': ''
+              },
+              'name': '',
+              'alt': '',
+              'id': ''
+            }
+          ],
+          'directors': [
+            {
+              'avatars': {
+                'small': '',
+                'medium': ''
+              },
+              'name': '',
+              'alt': '',
+              'id': ''
+            }
+          ],
+          'genres': [],
+          comments: [{
+            author: {
+              uid: '',
+              avatar: '',
+              name: ''
+            },
+            content: '',
+            create_at: ''
+          }],
+        }
       }
     },
     
@@ -155,7 +191,7 @@ import { api } from '../../global/api'
     font-size: 1.5rem;
   }
   .msg-img{
-    margin-right: 2%;
+    margin-right: 5%;
     margin-top: 5%;
 
   }
@@ -225,14 +261,17 @@ import { api } from '../../global/api'
     text-overflow:ellipsis;
   }
   .msg-duanping {
-
     padding: 1%;
     box-sizing: border-box;
   }
   .comment{
     display: flex;
   }
-
+  .comment_right{
+    margin-left: 5%;
+    margin-top: 3%;
+    width: 70%;
+  }
   .msg-star-wrap h3,
   .msg-duanping h3 {
     color: #666;
@@ -249,7 +288,6 @@ import { api } from '../../global/api'
   .author-img {
     flex: 1;
     margin-bottom: 5%;
-    
     border-bottom: 1% solid #d6d3d3;
   }
   .author-img:last-child {
@@ -261,7 +299,7 @@ import { api } from '../../global/api'
   }
   .author-img span {
     vertical-align: 30%;
-    margin-left: 5%;
+    margin-left: 3%;
     color: #999;
     font-size: 1.0rem;
   }
@@ -270,9 +308,11 @@ import { api } from '../../global/api'
     font-weight: lighter;
     text-align: center;
     font-size: 1.0rem;
+    width: 100%;
     height: 30%;
     border-bottom: 1% solid #d6d3d3;
   }
+
   .msg-rating {
     display: flex;
   }

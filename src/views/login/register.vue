@@ -102,7 +102,7 @@ import store from '../../store/index'
 	}
 </script>
 
-<style scope>
+<style scoped>
 	h1{
 		font-size: 2rem;
 		color: #26A2FF;

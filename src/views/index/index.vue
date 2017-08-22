@@ -1,7 +1,7 @@
 <template>
 	<div>
 		
-		<router-view></router-view>
+		<router-view :key="key"></router-view>
 		
 		<div class="footer">
 			<mt-tabbar v-model="selected">
@@ -38,11 +38,16 @@
 		},
 		methods:{
 			
-		}
+		},
+		computed: {
+	        key() {
+	          return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
+	        }
+        }
 	}
 </script>
 
-<style scope>
+<style scoped>
 	.mint-tab-item-label{
 		font-size: 1.0rem;
 	}
@@ -70,7 +75,7 @@
 	    overflow: hidden;
 	    height: 7%;
 	    background: #fff;
-	    border-top: 1px solid #e4e4e4;
+	    
 	}
 	
 </style>

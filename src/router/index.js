@@ -14,6 +14,7 @@ import SearchResult from '../views/search/searchResult'
 import Starmsg from '../views/celebrity/starMsg'
 import smallComment from '../views/comments/smallComment'
 import comment from '../views/comments/comment'
+import Allmovie from '../views/film/allmovie'
 
 Vue.use(Router)
 
@@ -21,20 +22,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect:'/index/received'
+      redirect:'/index/received',
+      name:''
       
     },
     {
       path: '/login',
-      name: 'login',
+      name: '登录',
       component: Login
     },
     {
     	path:'/register',
-        component:Register
+      component:Register,
+      name: '注册',
     },
     {
     	path:'/forgetpw',
+      name: '忘记密码',
     	component:Forgetpw
     },
     {
@@ -44,15 +48,17 @@ export default new Router({
       children:[
         {
           path:'received',
+          name: '热映',
           component:Received
         },
         {
           path:'find',
+          name: '找片',
           component:Eye  
         },
         {
           path:'my',
-          name:'my',
+          name:'我的',
           component:My
         }
       ]
@@ -87,6 +93,11 @@ export default new Router({
       path: '/comment/:id',
       name: 'comment',
       component: comment
+    },
+    {
+      path: '/allmovie/:id',
+      name: '查看全部',
+      component: Allmovie
     },
   ]
 })

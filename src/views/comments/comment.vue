@@ -87,7 +87,7 @@ import { api } from '../../global/api'
   }
 </script>
 
-<style scope>
+<style scoped>
   .i{
     float: left;
     padding-top: 1%;

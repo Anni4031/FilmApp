@@ -141,7 +141,7 @@ import star from '../star/star'
 	}
 </script>
 
-<style scope>
+<style scoped>
 	.container{
 		position: absolute;
 		top: 37%;

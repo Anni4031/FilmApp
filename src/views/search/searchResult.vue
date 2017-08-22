@@ -61,7 +61,7 @@ import store from '../../store/index'
   }
 </script>
 
-<style scope>
+<style scoped>
   .res-theaters-area {
     font-size: 0;
   }

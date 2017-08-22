@@ -36,7 +36,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .star-item {
     display: inline-block;
     height: 14px;

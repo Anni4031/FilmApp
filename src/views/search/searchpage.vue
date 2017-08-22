@@ -68,7 +68,7 @@ import store from '../../store/index'
   }
 </script>
 
-<style>
+<style scoped>
   .search-wrap {
     display: flex;
     padding: 5%;
