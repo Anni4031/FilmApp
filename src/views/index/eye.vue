@@ -104,12 +104,12 @@ import star from '../star/star'
                 },
                 listarr:[],
                 hotSearch: [
-                    {name: '彭于晏', id: '1013782',images:'http://img7.doubanio.com/img/celebrity/small/1368156632.65.jpg'},
-                    {name:'赵丽颖',id:'1275620',images:'http://img3.doubanio.com/img/celebrity/small/1498822880.67.jpg'},
-                    {name: '张艺谋', id: '1054398',images:'http://img3.doubanio.com/img/celebrity/small/568.jpg'},
-                    {name: '吴京', id: '1000525',images:'http://img7.doubanio.com/img/celebrity/small/39105.jpg'},
-                    {name: '刘亦菲', id: '1049732',images:'http://img7.doubanio.com/img/celebrity/small/38640.jpg'},
-                    {name: '杨洋', id: '1276051',images:'http://img3.doubanio.com/img/celebrity/small/1438787694.47.jpg'},
+                    {"name": "彭于晏", "id": '1013782',"images":'http://img7.doubanio.com/img/celebrity/small/1368156632.65.jpg'},
+                    {"name":"赵丽颖","id":'1275620',"images":'http://img3.doubanio.com/img/celebrity/small/1498822880.67.jpg'},
+                    {"name": "张艺谋", "id": '1054398',"images":'http://img3.doubanio.com/img/celebrity/small/568.jpg'},
+                    {"name": "吴京", "id": '1000525',"images":'http://img7.doubanio.com/img/celebrity/small/39105.jpg'},
+                    {"name": "刘亦菲", "id": '1049732',"images":'http://img7.doubanio.com/img/celebrity/small/38640.jpg'},
+                    {"name": "杨洋", "id": '1276051',"images":'http://img3.doubanio.com/img/celebrity/small/1438787694.47.jpg'},
                   ],
                 
                 
@@ -247,7 +247,7 @@ import star from '../star/star'
 	}
 	.mint-navbar .mint-tab-item.is-selected{
 		border-bottom: 3px solid #e54847;
-    	color: #e54847;
+    	color:  #e54847;
 	}
 
 </style>

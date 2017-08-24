@@ -32,9 +32,13 @@ import store from '../../store/index'
 				let  par = JSON.parse(JSON.stringify(this.loginuser)) ;
 				let earr=[];
 			    let parr=[];
+			    let username;
 		    	for(let i=0;i<this.user.length;i++){
 		    		earr.push(this.user[i].email)
 		    		parr.push(this.user[i].password)
+		    		if(par.email==this.user[i].email){
+		    			username=this.user[i].username
+		    		}
 		    	}
 				if(earr.indexOf(par.email)==-1 || parr.indexOf(par.password)==-1){
 					this.$toast({
@@ -44,7 +48,9 @@ import store from '../../store/index'
 					    className:"errtoast"				
 					});
 				}else{
-					console.log('注册成功即将跳转--------')  
+					par.name=username;
+					store.dispatch('setUser',par); 
+					console.log('登录成功即将跳转--------')
 		    	    this.$toast({
 					    message: '登录成功!',
 					    position: 'bottom',
@@ -87,6 +93,13 @@ import store from '../../store/index'
 	.hui{
 		color: gray;
 		text-decoration: none;
+
+	}
+	.errtoast{
+		background: red;
+	}
+	.suctoast{
+		background: #26A2FF;
 
 	}
 </style>

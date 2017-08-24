@@ -1,11 +1,6 @@
 <template>
   <div>
-    
-    <mt-header :title="('影评--'+commentsMsg.subject.title)" class="header-title">
-      <router-link to="/" slot="left">
-        <mt-button icon="back"  class="i"></mt-button>
-      </router-link>
-    </mt-header>
+    <T :title="('影评--'+commentsMsg.subject.title)"></T>
     
     <section class="largeCom-wrap">
       <div v-for="(item, index) in commentsMsg.reviews" class="largeCom-content">
@@ -39,6 +34,7 @@
 
 <script >
 import star from '../star/star'
+import Title from '../layout/header_title'
 import { api } from '../../global/api'
   export default {
     data () {
@@ -54,7 +50,8 @@ import { api } from '../../global/api'
       }
     },
     components: {
-      star: star
+      star: star,
+      T:Title
     },
     mounted: function () {
           this.$http.get(api.movie_basic + this.$route.params.id+"/reviews?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
@@ -88,27 +85,13 @@ import { api } from '../../global/api'
 </script>
 
 <style scoped>
-  .i{
-    float: left;
-    padding-top: 1%;
-    padding-left: 1%;
-    font-size: 1.5rem;
-  }
-  .header-title {
-    display: flex;
-    height: 24%;
-    width: 100%;
-    background-color: #e54847;
-    box-sizing: border-box;
-    font-size: 1.5rem;
-  }
-  
   .largeCom-wrap {
     padding: 2%;
   }
   .largeCom-content {
     margin-bottom: 2%;
     margin-top: 3%;
+    border-bottom: 1px solid #d6d6d6;
   }
   .largeCom-content h3 {
     font-size: 1.0rem;
@@ -134,7 +117,6 @@ import { api } from '../../global/api'
   }
   .largeCom-star {
     display: inline-block;
-    /* line-height: 48px; */
     margin-top: 6%;
   }
   .msg-all-Comment {

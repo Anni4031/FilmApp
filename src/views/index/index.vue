@@ -8,7 +8,7 @@
 			
 			  <mt-tab-item id="热映">
 			    <router-link to="/index/received">
-			    	<i class="fa fa-film" aria-hidden="true"></i> <br><span class="font">热映</span>
+			    	<i class="fa fa-film" aria-hidden="true"></i> <br>热映
 			    </router-link>
 			  </mt-tab-item>
 			  <mt-tab-item id="找片">
@@ -53,16 +53,8 @@
 	}
 	.font{
 		text-decoration: none;
-		color: #e54847;
+		color: #000;
 		
-	}
-	a{
-		text-decoration: none;
-	}
-
-	a:visited{
-		text-decoration: none;
-		color: #e54847;
 	}
 	.footer{
 		display: flex;
@@ -73,9 +65,17 @@
 	    right: 0;
 	    width: 100%;
 	    overflow: hidden;
-	    height: 7%;
+	    height: 8%;
 	    background: #fff;
 	    
+	}
+	.mint-tabbar{
+		background: #e54847;
+	}
+	.mint-tabbar > .mint-tab-item.is-selected a:link{
+		text-decoration: none;
+		color: #fff;
+
 	}
 	
 </style>

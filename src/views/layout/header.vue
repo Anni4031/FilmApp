@@ -1,13 +1,14 @@
 <template>
 	<div class="v-header">
-        <div class="v-header-logo">
-	        <img src="../../assets/images/logo.jpg" width="20%" style="margin-top:3%;">
-	        <span>酷电影</span>
-        </div>
+        
         
 		<div @click="to"  class="v-header-input">
 			<mt-search  v-model="value"  cancel-text="取消"  placeholder=" 影片类型 / 明星、导演姓名"></mt-search>
 		</div> 
+
+		<div class="v-header-btn">
+			<router-link to="/login"><span>登录</span></router-link> | <router-link to="/register"><span>注册</span></router-link>
+        </div>
 		
     </div>
 	
@@ -29,23 +30,24 @@
 	}
 </script>
 
-<style scoped>
+<style >
 	.v-header {
 	  display: flex;
 	  height: 30%;
 	  box-sizing: border-box;
+	  background: #df2d2d;
 	}
-	.v-header-logo {
+	.v-header-btn {
 	  width: 30%;
+	  color: #FFF;
+	  padding-top: 3%;
 	}
-	.v-header-logo img{
-		
+	.v-header-btn span{
+		font-size: 1.0rem;
+		text-decoration: none;
+		color: #fff;
 	}
-	.v-header-logo span{
-		font-size: 1.2rem;
-		font-weight: bold;
-		color: #df2d2d;
-	}
+	a{ text-decoration:none} 
 	.v-header-input {
 	  flex: 1;
 	  line-height: 100%;
@@ -54,6 +56,9 @@
 
 	.mint-search{
 		height: 5%;
+	}
+	.mint-searchbar{
+		background-color: #df2d2d; 
 	}
 	.mint-searchbar{
 		padding: 2% 2%;

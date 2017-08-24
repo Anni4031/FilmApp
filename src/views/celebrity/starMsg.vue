@@ -1,11 +1,7 @@
 <template>
   <div>
-      <mt-header :title="(starMsg.name_en+starMsg.name)" class="header-title">
-        <router-link to="/" slot="left">
-          <mt-button icon="back"  class="i"></mt-button>
-        </router-link>
-      </mt-header>
-
+      <T :title="(starMsg.name_en+starMsg.name)"></T>
+      
       <section class="star-msg">
         <img :src="starMsg.avatars.large">
         <div>
@@ -16,6 +12,12 @@
         </div>
       </section>
 
+      <section class="star-count">
+        <div @click="collect(starMsg)" v-if="isShow==true">+收藏</div>
+        <div @click="delCollect(starMsg)" v-else>已收藏</div>
+        <div>12346<!-- {{movieMsg.reviews_count}} -->人已收藏</div>
+      </section>
+     
       <section class="star-movie-wrap">
         <h3 v-if="starMsg.gender == '男'">他的代表作品</h3>
         <h3 v-if="starMsg.gender == '女'">她的代表作品</h3>
@@ -44,25 +46,29 @@
 <script>
 import star from '../star/star'
 import {api } from '../../global/api'
+import Title from '../layout/header_title'
+import store from '../../store/index'
   export default {
     data () {
       return {
-        guodu: true,
         starMsg: {
           avatars: {
             small: '',
             large: '',
-            medium: ''
+            medium: '',
           },
-        }
+        },
+        isShow:true,
+        collectarr:store.state.starcollect.collectInfo
       }
     },
-    components: { star},
+    components: { star:star,T:Title},
     mounted: function () {
       this.$http.get(api.movie_celebrity + this.$route.params.id).then(function (response) {
             this.starMsg = response.body
             console.log(response)
             console.log("movie_celebrity接口数据为:"+response)
+
           })
           .catch(function (response) {
             console.log(response)
@@ -75,26 +81,25 @@ import {api } from '../../global/api'
       },
       backLastPage: function () {
         window.history.go(-1)
+      },
+      collect(msg){
+        if(msg!=null){
+          store.dispatch("setCollectInfo",msg)
+          this.isShow=false   
+        }
+      },
+      delCollect(msg){
+        this.isShow=true;
+        let suoyin=this.collectarr.indexOf(msg)
+        this.collectarr.splice(suoyin,1)
+        console.log(this.collectarr)
       }
+
     }
   }
 </script>
 
 <style scoped>
-  .i{
-    float: left;
-    padding-top: 1%;
-    padding-left: 1%;
-    font-size: 1.5rem;
-  }
-  .header-title {
-    display: flex;
-    height: 24%;
-    width: 100%;
-    background-color: #e54847;
-    box-sizing: border-box;
-    font-size: 1.5rem;
-  }
   .star-msg {
     background-color: #b4b1b1;
     padding: 3%;
@@ -139,5 +144,23 @@ import {api } from '../../global/api'
   }
   .star-movie > div:last-child {
     flex: 1
+  }
+
+  .star-count {
+    display: flex;
+    justify-content: center;
+    padding: 3%;
+  }
+  .star-count div {
+    margin-right: 5%;
+    margin-left: 5%;
+    padding: 3%;
+    font-size: 1.0rem;
+    text-align: center;
+    width: 35%;
+    height: 30%;
+    color: white;
+    border-radius: 5px;
+    background-color: #e54847;
   }
 </style>

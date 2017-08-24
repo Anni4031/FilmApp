@@ -1,12 +1,7 @@
 <template>
   <div>
-      <mt-header :title="('短评--'+commentsMsg.subject.title)" class="header-title">
-        <router-link to="/" slot="left">
-          <mt-button icon="back"  class="i"></mt-button>
-        </router-link>
-      </mt-header>
-    
      
+    <T :title="('短评--'+commentsMsg.subject.title)"></T>
       <section class="all-smallCom"> 
         <div v-for="item in commentsMsg.comments" class="smallCom">
           <div class="smallCom-rating">
@@ -31,6 +26,7 @@
 
 <script>
 import star from '../star/star'
+import Title from '../layout/header_title'
 import { api } from '../../global/api'
   export default {
     data () {
@@ -41,7 +37,8 @@ import { api } from '../../global/api'
       }
     },
     components: {
-      star: star
+      star: star,
+      T:Title
     },
     mounted: function () {
       this.$http.get(api.movie_basic + this.$route.params.id+"/comments?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
@@ -61,20 +58,6 @@ import { api } from '../../global/api'
 </script>
 
 <style scoped>
-  .i{
-    float: left;
-    padding-top: 1%;
-    padding-left: 1%;
-    font-size: 1.5rem;
-  }
-  .header-title {
-    display: flex;
-    height: 24%;
-    width: 100%;
-    background-color: #e54847;
-    box-sizing: border-box;
-    font-size: 1.5rem;
-  }
   .all-smallCom {
     padding: 3%;
   }

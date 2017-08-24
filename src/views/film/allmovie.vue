@@ -1,10 +1,6 @@
 <template>
 	<div>
-		<mt-header :title="(datalist.title)" class="header-title">
-		  <router-link to="/" slot="left">
-		    <mt-button icon="back"  class="i"></mt-button>
-		  </router-link>
-		</mt-header>
+    	<T :title="(datalist.title)"></T>
 	  	<div class="content">
 	  		<div class="box"  v-if="bangdan!=2" >	
 		    	<div class="box_content" v-for="(item, index) in datalist.subjects" @click="showMoreMsg(item.id)">
@@ -37,8 +33,13 @@
 
 <script>
 import star from '../star/star'
+import Title from '../layout/header_title'
 import { api } from '../../global/api'
 export default {
+	components: {
+      Star: star,
+      T:Title
+    },
 	data () {
 	    return {
 	    	bangdan:this.$route.params.id,
@@ -50,9 +51,7 @@ export default {
 	    	datalist:{
 	    		title:"",
 	    	}
-
-	    }
-	      
+	    }   
 	},
 	methods:{
 	  	showData(){
@@ -76,20 +75,6 @@ export default {
 </script>
 
 <style scoped>
-	.i{
-	  float: left;
-	  padding-top: 1%;
-	  padding-left: 1%;
-	  font-size: 1.5rem;
-	}
-	.header-title {
-	  display: flex;
-	  height: 24%;
-	  width: 100%;
-	  background-color: #e54847;
-	  box-sizing: border-box;
-	  font-size: 1.5rem;
-	}
 	.content{
 		width: 100%;
 		height: 98%;

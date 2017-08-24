@@ -51,12 +51,11 @@
 										<span v-else>/</span>
 									</span>
 							</span>	
-
 						</span>
 					</div>
 					<div class="btn">
-						<mt-button type="primary" size="small" :disabled="status" v-model="text" @click="btnclick(index)" v-if="indexarr.indexOf(index)!==-1">{{text}}</mt-button>
-						<mt-button type="primary" size="small" v-model="text" @click="btnclick(index)" v-else>想看</mt-button>
+						<mt-button type="primary" size="small" :disabled="status" v-model="text" @click="btnclick(index,soonitem)" v-if="indexarr.indexOf(index)!==-1">{{text}}</mt-button>
+						<mt-button type="primary" size="small" v-model="text" @click="btnclick(index,soonitem)" v-else>想看</mt-button>
 					</div>
 				</div>
 			</div> 
@@ -78,6 +77,7 @@
 import top from '../layout/header'
 import { api } from '../../global/api'
 import star from '../star/star'
+import store from '../../store/index'
 
 
 	export default {
@@ -85,8 +85,7 @@ import star from '../star/star'
 		components:{
 			Top:top,
 			Star:star,
-			lb:Banner
-			
+			lb:Banner	
 		},
 		data(){
 			return {
@@ -99,7 +98,9 @@ import star from '../star/star'
 				in_theaterslist:null,
 				text:"想看",
 				status:false,
-				indexarr:[]
+				indexarr:[],
+				btnarr:[],
+				user:store.state.loginuser.user,				
 				
 			}
 		},
@@ -126,12 +127,43 @@ import star from '../star/star'
 			  const path = '/moviemsg/' + str
 			  this.$router.push({path: path})
 			},
-			btnclick(index){
-				this.indexarr.push(index)
-				if(this.text=="想看"){
-					this.status=true;
-					this.text="已想看"
+			btnclick(index,soonitem){
+				let user=JSON.parse(JSON.stringify(this.user))
+				let date=new Date()
+				console.log("时间:",date)
+				let year=date.getFullYear(); 
+				console.log("year",year)
+				let month=date.getMonth();
+				let day=date.getDate();
+				let hours=date.getHours();
+				let minutes=date.getMinutes();
+				let seconds=date.getSeconds();
+				let date1=""+year+"年"+month+"月"+day+"日 "+hours+":"+minutes+":"+seconds+"";
+				soonitem.date=date1
+				this.btnarr.push(soonitem)
+				console.log("btnarr:",this.btnarr)
+				if(user!=null){
+					this.indexarr.push(index)
+					console.log("indexarr--",this.indexarr)
+					if(this.text=="想看"){
+						this.status=true;
+						this.text="已想看";
+					}
+					
+					for(let i=0;i<this.btnarr.length;i++){
+						store.dispatch('setWantInfo',this.btnarr[i]); 
+					}
+					
+					
+				}else{
+					this.$toast({
+					    message: '还未登录,请先登录!',
+					    position: 'bottom',
+					    duration: 2000,
+					    className:"errtoast"				
+					});	
 				}
+				
 			}
 			
 		},
@@ -155,13 +187,12 @@ import star from '../star/star'
 	}
 	.box{
 		width: 100%;
-		height: 99%;
+		height: 100%;
 		overflow: auto;
 		text-decoration: none;
 	}
 	.box_content{
 		background-color: #f8f8f8;
-		padding: 1% 1%;
 		box-sizing: border-box;
 		cursor: pointer;
 		display: flex;
@@ -193,6 +224,10 @@ import star from '../star/star'
 	}
 	.mint-navbar .mint-tab-item.is-selected{
 		border-bottom: 3px solid #e54847;
-    	color: #e54847;
+    	color:  #e54847;
+    	
+	}
+	.errtoast{
+		background: red;
 	}
 </style>
