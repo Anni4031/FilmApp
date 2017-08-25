@@ -2,7 +2,7 @@
 * @Author: admin
 * @Date:   2017-08-23 11:19:23
 * @Last Modified by:   admin
-* @Last Modified time: 2017-08-24 14:20:01
+* @Last Modified time: 2017-08-25 16:29:03
 */
 const want = {
   state: {
@@ -13,7 +13,8 @@ const want = {
   mutations: {
       SET_WANTINFO: (state, newWantInfo) => {
         
-        state.wantInfo.push(newWantInfo) ;
+        state.wantInfo.push(newWantInfo);
+        
         console.log('想看数据为:',state.wantInfo)
       },
     },

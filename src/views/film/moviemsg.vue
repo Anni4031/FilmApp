@@ -18,8 +18,8 @@
       </section>
 
       <section class="msg-count">
-        <div>{{movieMsg.wish_count}}人想看</div>
-        <div>{{movieMsg.reviews_count}}人看过</div>
+        <mt-button type="danger" @click.native="want(movieMsg)" :disabled="status1">想看</mt-button>
+        <mt-button type="danger" @click.native="watched(movieMsg)" :disabled="status2">看过</mt-button>
       </section>
 
       <div class="msg-summary">
@@ -59,7 +59,7 @@
 
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="1">
-          <section class="msg-duanping">
+          <div class="msg-duanping">
             <div class="comment" v-for="(item,index) in comments" v-if="index<5">
               <div class="author-img">
                 <img :src="item.author.avatar" :alt="item.author.alt"><br>
@@ -74,11 +74,12 @@
               </div>
             </div>
             <p @click="smallComment(movieMsg.id)" class="msg-all-Comment">查看全部短论</p>
-          </section>
+          </div>
         </mt-tab-container-item>
 
         <mt-tab-container-item id="2">
-            <section class="largeCom-wrap">
+            <div class="largeCom-wrap">
+              <div>影评          <span class="write" @click="write(movieMsg.id)"><i class="fa fa-pencil" aria-hidden="true"></i>写影评</span></div>
               <div v-for="(item, index) in commentsMsg.reviews" class="largeCom-content" v-if="index<5">
                 <h3 v-if="item.title.length<=15">标题：{{item.title}}</h3>
                 <h3 v-else>标题：<span>{{item.title.substr(0,14)}}...</span></h3>
@@ -104,32 +105,9 @@
                 </footer>
               </div>
               <p @click="comment(movieMsg.id)" class="msg-all-Comment">查看全部影评</p>
-            </section>
-        </mt-tab-container-item>
-      </mt-tab-container>
-
-     <!--  <section class="msg-duanping">
-        <h3>热门短评</h3>
-        <div class="comment" v-for="(item,index) in comments" v-if="index<8">
-          <div class="author-img">
-            <img :src="item.author.avatar" :alt="item.author.alt"><br>
-            <span>{{item.author.name}}</span>
-          </div>
-
-          <div class="comment_right">
-            <div class="msg-rating">
-              <star :score="item.rating.value*2"></star>
-              <span>{{item.created_at}}</span>
             </div>
-            <span class="author-content">{{item.content}}</span>
-          </div>
-        </div>
-       
-        <p @click="comment(movieMsg.id)" class="msg-all-Comment">查看全部影评</p>
-      </section> -->
-
-
-    
+        </mt-tab-container-item>
+      </mt-tab-container>   
   </div>
 </template>
 
@@ -137,6 +115,7 @@
 import star from '../star/star'
 import Title from '../layout/header_title'
 import { api } from '../../global/api'
+import store from '../../store/index'
   export default {
     components: {
       star:star,
@@ -145,6 +124,9 @@ import { api } from '../../global/api'
     data () {
       return {
         selected:"1",
+        user:store.state.loginuser.user,
+        status1:false,
+        status2:false,   
         commentsMsg: {
           
           subject: {
@@ -255,6 +237,47 @@ import { api } from '../../global/api'
         }
         
       },
+      write:function(str){
+        if(this.user!=null){
+            const path = '/moviemsg/' + str + '/writecomment'
+            this.$router.push({path: path})
+        }else{
+          this.$toast({
+              message: '还未登录,请先登录!',
+              position: 'bottom',
+              duration: 2000,
+              className:"errtoast"        
+          }); 
+        }
+      },
+      want(str){
+          this.status1=true;
+          let date=new Date()
+          let year=date.getFullYear(); 
+          let month=date.getMonth();
+          let day=date.getDate();
+          let hours=date.getHours();
+          let minutes=date.getMinutes();
+          let seconds=date.getSeconds();
+          let date1=""+year+"年"+month+"月"+day+"日 "+hours+":"+minutes+":"+seconds+"";
+          str.date=date1
+          let par=JSON.parse(JSON.stringify(str))
+          store.dispatch('setWantInfo',par); 
+      },
+      watched(str){
+          this.status2=true;
+          let date=new Date()
+          let year=date.getFullYear(); 
+          let month=date.getMonth();
+          let day=date.getDate();
+          let hours=date.getHours();
+          let minutes=date.getMinutes();
+          let seconds=date.getSeconds();
+          let date1=""+year+"年"+month+"月"+day+"日 "+hours+":"+minutes+":"+seconds+"";
+          str.date=date1
+          let par=JSON.parse(JSON.stringify(str))
+          store.dispatch('setWatchedInfo',par); 
+      }
     }
   }
 </script>
@@ -285,26 +308,20 @@ import { api } from '../../global/api'
   }
  
   .msg-count {
-    display: flex;
-    justify-content: center;
-    padding: 3%;
+    /* display: flex;
+    justify-content: center; */
+    width: 100%;
+    padding: 5% 3%;
   }
-  .msg-count div {
-    margin-right: 5%;
-    margin-left: 5%;
-    padding: 3%;
-    font-size: 1.0rem;
-    text-align: center;
+  .mint-button{
     width: 35%;
-    height: 30%;
-    color: white;
-    border-radius: 5px;
-    background-color: #e54847;
+    margin-right: 5%;
   }
   .msg-summary {
     padding: 3%;
     font-size: 1.0rem;
     color: #555;
+    text-align: left;
   }
   .msg-star-wrap {
     padding: 2%;
@@ -318,7 +335,6 @@ import { api } from '../../global/api'
     overflow: hidden;
     height: 20%;
     margin: 0 auto;
-    overflow: hidden;
   }
   .msg-scoll > div {
     display: inline-block;
@@ -333,6 +349,8 @@ import { api } from '../../global/api'
   .msg-duanping {
     padding: 1%;
     box-sizing: border-box;
+    overflow: auto;
+    text-decoration: none;
   }
   .comment{
     display: flex;
@@ -395,6 +413,11 @@ import { api } from '../../global/api'
   }
   .largeCom-wrap {
     padding: 2%;
+    text-align: left;
+  }
+  .write{
+    float: right;
+    padding-right: 3%;
   }
   .largeCom-content {
     margin-bottom: 2%;
@@ -425,7 +448,6 @@ import { api } from '../../global/api'
   }
   .largeCom-star {
     display: inline-block;
-    /* line-height: 48px; */
     margin-top: 6%;
   }
   .msg-all-Comment {
@@ -436,4 +458,5 @@ import { api } from '../../global/api'
     height: 30%;
     border-bottom: 1% solid #d6d3d3;
   }
+
 </style>

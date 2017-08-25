@@ -104,6 +104,9 @@ import store from '../../store/index'
 				
 			}
 		},
+		mounted(){
+			this.getData()
+		},
 		methods:{
 			getData(){
 				this.$http.get(api.in_theaters).then(function (response) {
@@ -150,11 +153,8 @@ import store from '../../store/index'
 						this.text="已想看";
 					}
 					
-					for(let i=0;i<this.btnarr.length;i++){
-						store.dispatch('setWantInfo',this.btnarr[i]); 
-					}
-					
-					
+					store.dispatch('setWantInfo',soonitem); 
+				
 				}else{
 					this.$toast({
 					    message: '还未登录,请先登录!',
@@ -166,9 +166,6 @@ import store from '../../store/index'
 				
 			}
 			
-		},
-		mounted(){
-			this.getData()
 		}
 	}
 </script>

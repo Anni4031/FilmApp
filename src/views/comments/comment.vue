@@ -13,8 +13,15 @@
           <span>{{item.created_at}}</span>
         </div>
         <div v-if="indexarr.indexOf(index)===-1">
-            {{ item.summary }}
+          <div v-if="item.summary.length>=35">
+            {{ item.summary.substr(0,34) }}...
           <span @click="showContent(index)" class="msg-all-Comment"><详情</span>
+          </div>
+          <div v-else>
+            {{ item.summary }}
+          </div>
+            <!-- {{ item.summary }}
+          <span @click="showContent(index)" class="msg-all-Comment"><详情</span> -->
         </div>
         
         <div v-else >
@@ -87,6 +94,7 @@ import { api } from '../../global/api'
 <style scoped>
   .largeCom-wrap {
     padding: 2%;
+    text-align: left;
   }
   .largeCom-content {
     margin-bottom: 2%;

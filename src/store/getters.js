@@ -13,11 +13,14 @@ const getters = {
 	wantIn: state => {
 		      	return state.want.wantInfo
 	}, //想看信息
-    wantbtnIn: state => {
-		      	return state.wantbtn.wantbtnInfo
-	}, //已想看信息
 	starcollectIn: state => {
 		      	return state.starcollect.collectInfo
 	}, //已收藏信息
+	writecommentIn: state => {
+		      	return state.write.writeInfo
+	}, //写影评信息
+	watchedIn: state => {
+		      	return state.watched.watchedInfo
+	}, //看过信息
 };
 export default getters

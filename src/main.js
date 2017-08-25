@@ -6,6 +6,7 @@ import VueResource from 'vue-resource'
 import App from './App'
 import router from './router'
 import MintUI from 'mint-ui'
+import StarRating from 'vue-star-rating'
 import 'mint-ui/lib/style.css'
 import store from './store/index'
 
@@ -15,6 +16,7 @@ Vue.config.silent = true
 Vue.use(Vuex)
 Vue.use(VueResource)
 Vue.use(MintUI)
+Vue.component('star-rating', StarRating);
 // 导航钩子
 router.beforeEach((to, from, next) => {
   if(store.state.user.userInfo===null){
@@ -33,5 +35,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: { App,}
 })

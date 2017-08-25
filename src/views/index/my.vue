@@ -75,9 +75,24 @@
 
 			<mt-tab-container-item id="3">
 			   	<div class="bg" v-if="user!=null">
-					<header>{{ number }}部</header>
-					<div v-if="number!=0">
-						
+					<header>{{ number3 }}部</header>
+					<div v-if="number3!=0">
+						<div class="box_content"  v-for="(item, index) in watchedlist" >
+							<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
+							<div class="box_right"  @click="showMoreMsg(item.id)">
+								<h2>{{ item.title }}</h2>
+								<span class="daoyan">导演:{{ item.directors[0].name}}</span><br>
+								<span class="daoyan">
+									<span>
+										主演:<span v-for="(zhuyan, index) in item.casts">{{zhuyan.name}}
+												<span v-if="index===item.casts.length-1"></span>
+												<span v-else>/</span>
+											</span>
+									</span>	
+								</span>
+							</div>
+							<div class="date">{{item.date}}</div>
+						</div>
 					</div>
 					<div v-else class="wu">
 						暂无标记相关内容
@@ -89,7 +104,27 @@
 			   	<div class="bg" v-if="user!=null">
 					<header>{{ number4 }}篇</header>
 					<div v-if="number4!=0">
-						
+						<div v-for="(item, index) in commentlist" class="largeCom-content" >
+						  <div class="largeCom-content-header">
+						  	<h3 v-if="item.title.length<=15">标题：{{item.title}}</h3>
+						  	<h3 v-else>标题：<span>{{item.title.substr(0,14)}}...</span></h3>
+						    <star :score="item.rating*2" class="largeCom-star"></star>
+						    <p>{{item.rating*2}}分</p>
+						  </div>
+						  <div v-if="indexarr.indexOf(index)===-1">
+						  		<div v-if="item.content.length>=35">
+						  			{{ item.content.substr(0,34) }}...
+									<span @click="showContent(index)" class="msg-all-Comment"><详情</span>
+						  		</div>
+						  		<div v-else>
+						  			{{ item.content }}
+						  		</div>
+						  </div>
+						  <div v-else >
+						      {{ item.content }}
+						      <span @click="showContent(index)" class="msg-all-Comment"><收起</span>
+						  </div>
+						</div>
 					</div>
 					<div v-else class="wu">
 						你还未发表任何影评
@@ -122,26 +157,36 @@
 </template>
 
 <script>
+import star from '../star/star'
 import store from '../../store/index'
 import { api } from '../../global/api'
 	export default {
 		name:'my',
+		components: {
+		  star
+		},
 		data(){
 			return {
 				selected:'1',
 				number:0,
+				number3:0,
 				number4:0,
 				number5:0,
 				user:store.state.loginuser.user,
 				wantlist:store.state.want.wantInfo,
-				collectarr:store.state.starcollect.collectInfo
+				collectarr:store.state.starcollect.collectInfo,
+				commentlist:store.state.write.writeInfo,
+				watchedlist:store.state.watched.watchedInfo,
+				contentShow:false,
+				indexarr:[],
 			}
 		},
 		mounted:function(){
 			this.showWant()
+			this.showWatched()
 			this.showStar()
+			this.showcomment()
 			console.log("my",this.user)
-			console.log("mylist",this.wantlist)
 		},
 		methods:{
 			showWant:function(){
@@ -163,6 +208,26 @@ import { api } from '../../global/api'
 					console.log("collectarr:",this.collectarr)
 				}
 			},
+			showcomment(){
+				if(this.user==null){
+					this.commentlist=null
+				}else{
+				    let vm=this; 
+					this.number4=this.commentlist.length
+					console.log("4",this.number4)
+					console.log("commentlist:",this.commentlist)
+				}
+			},
+			showWatched(){
+				if(this.user==null){
+					this.watchedlist=null
+				}else{
+				    let vm=this; 
+					this.number3=this.watchedlist.length
+					console.log("3",this.number3)
+					console.log("watchedlist:",this.watchedlist)
+				}
+			},
 			gologin:function(){
 				this.$router.push('/login')
 			},
@@ -173,6 +238,21 @@ import { api } from '../../global/api'
 			starMsg: function (str) {
 			  const path = '/starmsg/' + str
 			  this.$router.push({path: path})
+			},
+			showContent: function (ind) {
+			  if(this.contentShow==false){
+			    this.indexarr.push(ind)
+			    console.log("++++",ind)
+			    console.log("++++",this.indexarr)
+			    this.contentShow=true
+			  }else{
+			    let index=this.indexarr.indexOf(ind)
+			    this.indexarr.splice(index,1)
+			    console.log("----",ind)
+			    console.log("-----",this.indexarr)
+			    this.contentShow=false
+			  }
+			  
 			},
 		}
 	}
@@ -325,5 +405,42 @@ import { api } from '../../global/api'
     }
     .item span{
     	font-size: 0.9rem;
+    }
+    .largeCom-content {
+      margin-bottom: 2%;
+      padding: 2%;
+      background: #fff;
+      text-align: left;
+      border-bottom: 1px solid #d6d6d6;
+    }
+    .largeCom-content h3 {
+      font-size: 1.0rem;
+      margin-right: 3%;
+    }
+    .largeCom-content-header {
+      display: flex;
+    }
+    .largeCom-content-header span {
+      align-self: center;
+
+    }
+    .largeCom-content-header-rating {
+      flex: 1;
+      margin-left: 3%;  
+    }
+    .largeCom-content footer {
+      text-align: right;
+    }
+    .largeCom-star {
+      display: inline-block;
+      margin-top: 6%;
+    }
+    .msg-all-Comment {
+      color: #e54847;
+      font-weight: lighter;
+      text-align: center;
+      font-size: 1.0rem;
+      height: 30%;
+      border-bottom: 1% solid #d6d3d3;
     }
 </style>

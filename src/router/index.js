@@ -15,6 +15,7 @@ import Starmsg from '../views/celebrity/starMsg'
 import smallComment from '../views/comments/smallComment'
 import comment from '../views/comments/comment'
 import Allmovie from '../views/film/allmovie'
+import WriteComment from '../views/comments/writecomment'
 
 Vue.use(Router)
 
@@ -67,7 +68,7 @@ export default new Router({
     {
       path:'/moviemsg/:id',
       name:'moviemsg',
-      component:Moviemsg
+      component:Moviemsg,
     },
     {
       path:'/searchpage',
@@ -98,6 +99,11 @@ export default new Router({
       path: '/allmovie/:id',
       name: '查看全部',
       component: Allmovie
+    },
+    {
+      path: '/moviemsg/:id/writecomment',
+      name: '写影评',
+      component: WriteComment
     },
   ]
 })

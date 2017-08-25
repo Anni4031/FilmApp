@@ -4,8 +4,9 @@ import user from './modules/user';
 import search from './modules/searchval'
 import loginuser from './modules/loginuser'
 import want from './modules/want'
-import wantbtn from './modules/wantbtn'
 import starcollect from './modules/starcollect'
+import write from './modules/writecomment'
+import watched from './modules/watched'
 
 import getters from './getters';
 
@@ -17,7 +18,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	modules: {
-    	user,search,loginuser,want,wantbtn,starcollect
+    	user,search,loginuser,want,starcollect,write,watched
     },
     getters
 })
