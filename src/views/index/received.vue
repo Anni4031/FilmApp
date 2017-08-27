@@ -85,7 +85,7 @@ import store from '../../store/index'
 		components:{
 			Top:top,
 			Star:star,
-			lb:Banner	
+			lb:Banner,
 		},
 		data(){
 			return {
@@ -99,8 +99,8 @@ import store from '../../store/index'
 				text:"想看",
 				status:false,
 				indexarr:[],
-				btnarr:[],
-				user:store.state.loginuser.user,				
+				user:store.state.loginuser.user,
+				wantlist:store.state.want.wantInfo				
 				
 			}
 		},
@@ -143,17 +143,28 @@ import store from '../../store/index'
 				let seconds=date.getSeconds();
 				let date1=""+year+"年"+month+"月"+day+"日 "+hours+":"+minutes+":"+seconds+"";
 				soonitem.date=date1
-				this.btnarr.push(soonitem)
-				console.log("btnarr:",this.btnarr)
+				let idarr=[];
 				if(user!=null){
-					this.indexarr.push(index)
-					console.log("indexarr--",this.indexarr)
-					if(this.text=="想看"){
-						this.status=true;
-						this.text="已想看";
+					for(let i=0;i<this.wantlist.length;i++){
+						idarr.push(this.wantlist[i].id)
+					}
+					if(idarr.indexOf(soonitem.id)==-1){
+						this.indexarr.push(index)
+						console.log("indexarr--",this.indexarr)
+						if(this.text=="想看"){
+							this.status=true;
+							this.text="已想看";
+						}
+						store.dispatch('setWantInfo',soonitem); 
+					}else{
+						this.$toast({
+						    message: '想看失败,该电影已想看',
+						    position: 'bottom',
+						    duration: 2000,
+						    className:"success"				
+						});	
 					}
 					
-					store.dispatch('setWantInfo',soonitem); 
 				
 				}else{
 					this.$toast({
@@ -184,7 +195,7 @@ import store from '../../store/index'
 	}
 	.box{
 		width: 100%;
-		height: 100%;
+		height: 98%;
 		overflow: auto;
 		text-decoration: none;
 	}
@@ -226,5 +237,8 @@ import store from '../../store/index'
 	}
 	.errtoast{
 		background: red;
+	}
+	.success{
+		background: #26A2FF;
 	}
 </style>

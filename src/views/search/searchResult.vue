@@ -1,6 +1,6 @@
 <template>
 	<div class="result">
-		<top></top>
+    <Top></Top>
 		<h1 class="title">'{{val.q}}'的搜索结果,共{{search_result.total}}条信息 </h1><!--  -->
 		<div  class="res-theaters-area">
 		  <div class="res-movies-wrap" >
@@ -37,7 +37,7 @@ import store from '../../store/index'
       this.showMoreMsg()
     },
     components: {
-      top : top,
+      Top:top,
       star: star
     },
     watch: {

@@ -16,6 +16,7 @@ import smallComment from '../views/comments/smallComment'
 import comment from '../views/comments/comment'
 import Allmovie from '../views/film/allmovie'
 import WriteComment from '../views/comments/writecomment'
+import Setindex from '../views/set/index'
 
 Vue.use(Router)
 
@@ -105,5 +106,10 @@ export default new Router({
       name: '写影评',
       component: WriteComment
     },
+    {
+      path:'/set',
+      name:"设置",
+      component:Setindex
+    }
   ]
 })

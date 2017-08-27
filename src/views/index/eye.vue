@@ -5,7 +5,7 @@
 		<div  class="container" >
 			<mt-navbar v-model="selected">
 			  <mt-tab-item id="1">榜单</mt-tab-item>
-			  <mt-tab-item id="2">电视</mt-tab-item>
+			  <mt-tab-item id="2">热门</mt-tab-item>
 			</mt-navbar>
 			<mt-tab-container v-model="selected">
 			  <mt-tab-container-item id="1">
@@ -46,20 +46,58 @@
 			
 			  <mt-tab-container-item id="2">
 			  	<div class="content">
-					<div class="box">
-				   		<header>今日推荐影人</header>
-				   		<div class="item" v-for="(item,index) in hotSearch" @click="starMsg(item.id)">
+					<div class="box" >
+				   		<header>{{ hotlist[0].title }}</header>
+				   		<div class="item" v-for="(item,index) in hotlist[0].subject" @click="starMsg(item.id)">
 							<img :src="item.images" ><br>
 					    	<span>{{ item.name }}</span>		
 				   		</div>	
 			   		</div>
 					<div class="box">
-				   		<header>你可能感兴趣</header>
-				   		<div class="item" v-for="(item,index) in hotSearch" @click="starMsg(item.id)">
+				   		<header>{{ hotlist[1].title }}</header>
+				   		<div class="item" v-for="(item,index) in hotlist[1].subject" @click="showMoreMsg(item.id)">
 							<img :src="item.images" ><br>
-					    	<span>{{ item.name }}</span>		
+					    	<span v-if="item.name.length<5">{{ item.name }}</span>
+					    	<span v-else>{{ item.name.substr(0,4) }}...</span>		
 				   		</div>	
 			   		</div>
+
+			   		<div class="largeCom-wrap">
+			   			<header>{{ hotlist[2].title }}</header>
+			   		  	<div v-for="(item, index) in hotlist[2].subject" class="largeCom-content">
+				   		  	<div class="movie-msg">
+				   		  		<img :src="item.images">
+				   		  		<span v-if="item.name.length<5">{{ item.name }}</span>
+						    	<span v-else>{{ item.name.substr(0,4) }}...</span>		
+				   		  	</div>
+				   		  	<div class="comment-msg">
+				   		  		<h3 v-if="item.title.length<=15">标题：{{item.title}}</h3>
+				   		  		<h3 v-else>标题：<span>{{item.title.substr(0,14)}}...</span></h3>
+				   		  		<div class="largeCom-content-header">
+				   		  		  <img :src="item.uimages">
+				   		  		  <span>{{item.uname}} </span>
+				   		  		  <star :score="item.star*2" class="largeCom-star"></star>
+				   		  		  <span>{{item.date}}</span>
+				   		  		</div>
+				   		  		<div v-if="indexarr.indexOf(index)===-1">
+				   		  		  <div v-if="item.content.length>=35">
+				   		  		    {{ item.content.substr(0,34) }}...
+				   		  		  <span @click="showContent(index)" class="msg-all-Comment"><详情</span>
+				   		  		  </div>
+				   		  		  <div v-else>
+				   		  		    {{ item.content }}
+				   		  		  </div>
+				   		  		    
+				   		  		</div>
+				   		  		
+				   		  		<div v-else >
+				   		  		    {{ item.content }}
+				   		  		    <span @click="showContent(index)" class="msg-all-Comment"><收起</span>
+				   		  		</div>
+				   		  	</div>
+			   		    
+			   			</div>
+			   	  </div>
 		   		</div>
 			  </mt-tab-container-item>
 			</mt-tab-container> 
@@ -103,14 +141,9 @@ import star from '../star/star'
                 	title:'',
                 },
                 listarr:[],
-                hotSearch: [
-                    {"name": "彭于晏", "id": '1013782',"images":'http://img7.doubanio.com/img/celebrity/small/1368156632.65.jpg'},
-                    {"name":"赵丽颖","id":'1275620',"images":'http://img3.doubanio.com/img/celebrity/small/1498822880.67.jpg'},
-                    {"name": "张艺谋", "id": '1054398',"images":'http://img3.doubanio.com/img/celebrity/small/568.jpg'},
-                    {"name": "吴京", "id": '1000525',"images":'http://img7.doubanio.com/img/celebrity/small/39105.jpg'},
-                    {"name": "刘亦菲", "id": '1049732',"images":'http://img7.doubanio.com/img/celebrity/small/38640.jpg'},
-                    {"name": "杨洋", "id": '1276051',"images":'http://img3.doubanio.com/img/celebrity/small/1438787694.47.jpg'},
-                  ],
+                hotlist:[],
+                contentShow:false,
+                indexarr:[]
                 
                 
 			}
@@ -147,7 +180,18 @@ import star from '../star/star'
 			        
 			    }).catch(function (response) {
 			          console.log(response)
-			    });	   
+			    });
+			    //热门
+		    	this.$http.get(api.hot).then(function (response) {
+		            let data= response.body;
+		            this.hotlist=data.data
+		            console.log("hot,json数据为:",response)
+		            
+		        }).catch(function (response) {
+		              console.log(response)
+		        });
+
+
 			},
 			showMoreMsg: function (str) {
 			  const path = '/moviemsg/' + str
@@ -160,6 +204,21 @@ import star from '../star/star'
 			starMsg: function (str) {
 			  const path = '/starmsg/' + str
 			  this.$router.push({path: path})
+			},
+			showContent: function (ind) {
+			  if(this.contentShow==false){
+			    this.indexarr.push(ind)
+			    console.log("++++",ind)
+			    console.log("++++",this.indexarr)
+			    this.contentShow=true
+			  }else{
+			    let index=this.indexarr.indexOf(ind)
+			    this.indexarr.splice(index,1)
+			    console.log("----",ind)
+			    console.log("-----",this.indexarr)
+			    this.contentShow=false
+			  }
+			  
 			},
 		},
 		mounted(){
@@ -179,6 +238,7 @@ import star from '../star/star'
 		width: 100%;
 		font-weight: bold ;
 		padding: 2%;
+		
 		text-align: left;
 	}
 	.container{
@@ -190,7 +250,7 @@ import star from '../star/star'
 	}
 	.content{
 		width: 100%;
-		height: 98%;
+		height: 97%;
 		overflow: auto;
 		text-decoration: none;
 	}
@@ -198,6 +258,7 @@ import star from '../star/star'
 		width: 100%;
 		height: auto;
 		text-decoration: none;
+		margin-bottom: 2%;
 	}
 	.item {
         float: left;
@@ -209,9 +270,7 @@ import star from '../star/star'
         text-decoration: none;
         color: #9b9b9b;
     }
-    .item span{
-    	font-size: 1.2rem;
-    }
+    
 	.box_content{
 		background-color: #f8f8f8;
 		box-sizing: border-box;
@@ -248,6 +307,58 @@ import star from '../star/star'
 	.mint-navbar .mint-tab-item.is-selected{
 		border-bottom: 3px solid #e54847;
     	color:  #e54847;
+	}
+
+	.largeCom-wrap {
+	  padding: 2%;
+	  text-align: left;
+	  
+	}
+	
+	.largeCom-content {
+	  margin-bottom: 2%;
+	  margin-top: 1%;
+	  border-bottom: 1px solid #d6d6d6;
+	  display: flex;
+	}
+	.movie-msg{
+		flex: 1;
+		width: 30%;
+		padding: 3% 2%;
+	}
+	.comment-msg{
+
+	}
+	.comment-msg h3 {
+	  font-size: 1.0rem;
+	}
+	.comment-msg img {
+	  width: 15%;
+	  height: 15%;
+	  border-radius: 24px;  
+	  margin-right: 2%;
+	}
+	.largeCom-content-header {
+	  display: flex;
+	}
+	.largeCom-content-header span {
+	  align-self: center;
+	}
+	.largeCom-content-header-rating {
+	  flex: 1;
+	  margin-left: 3%;  
+	}
+	.largeCom-star {
+	  display: inline-block;
+	  margin-top: 6%;
+	}
+	.msg-all-Comment {
+	  color: #e54847;
+	  font-weight: lighter;
+	  text-align: center;
+	  font-size: 1.0rem;
+	  height: 30%;
+	  border-bottom: 1% solid #d6d3d3;
 	}
 
 </style>

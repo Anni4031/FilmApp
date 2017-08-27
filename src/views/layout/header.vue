@@ -3,7 +3,7 @@
         
         
 		<div @click="to"  class="v-header-input">
-			<mt-search  v-model="value"  cancel-text="取消"  placeholder=" 影片类型 / 明星、导演姓名"></mt-search>
+			<mt-search  v-model="value"  cancel-text="取消"  placeholder=" 影片 / 类型 / 明星、导演"></mt-search>
 		</div> 
 
 		<div class="v-header-btn">
@@ -30,7 +30,7 @@
 	}
 </script>
 
-<style >
+<style>
 	.v-header {
 	  display: flex;
 	  height: 30%;

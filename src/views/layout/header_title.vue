@@ -16,7 +16,9 @@
 	    },
 	    methods: {  
 	        backLastPage: function () {
-	           window.history.go(-1)
+	           // window.history.go(-1)
+	           // this.$route.go(-1)
+	           this.$router.go(-1)
 	        }    
 	    }  
 	}

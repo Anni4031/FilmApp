@@ -2,17 +2,12 @@
 	<div>
 		<div class="user-center">
 		  <div class="user">
-		  	<div class="top">
-		  		<mt-button icon="more" slot="right"></mt-button>
-		  		<!-- <div>
-		  			<button>退出登录</button>
-		  			<button></button>
-		  			<button>关于</button>
-		  		</div> -->
+		  	<div class="top" @click="setclick">
+		  		<img src="../../assets/images/set.png" alt="">
 		  	</div>
 		  	<div class="xiamian">
 		  		<div class="avatar">
-		  		  <img src="../../assets/images/touxiang.png" alt="">
+		  		  <img src="../../assets/images/touxiang.png" alt="" >
 		  		</div>
 		  		<div class="name" v-if="user==null"><span @click="gologin">请登录</span></div>
 		  		<div class="name" v-else>{{ user.name }}</div>
@@ -254,6 +249,9 @@ import { api } from '../../global/api'
 			  }
 			  
 			},
+			setclick:function(){
+				this.$router.push('/set')
+			}
 		}
 	}
 </script>

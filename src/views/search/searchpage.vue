@@ -1,8 +1,15 @@
 <template>
   <div class="bg">
     <div class="search-wrap">
-      <input id="inp" v-model="query.q" @keyup.enter="submit()">
-      <span @click="notSubmit()">取消</span>
+      <!-- <mt-search  v-model="query.q"  cancel-text="取消"></mt-search> -->
+      <!-- <input id="p" v-model="query.q" @keyup.enter="submit()" type="search">
+      -->
+      <div class="search bar7">
+        
+        <input type="text" v-model="query.q" @keyup.enter="submit()" ><img src="../../assets/images/search.png" alt="" width="7%">
+        <div @click="notSubmit()">取消</div>
+        
+      </div>
     </div>
     <div class="hot-search">
       <h3>热门搜索</h3>
@@ -17,7 +24,7 @@ import store from '../../store/index'
     data () {
       return {
         query: {
-          "q": null,         //明星、导演姓名
+          "q": null,         //影片、明星、导演姓名
           "tag": null,       //类型
         },
         hotSearch: [
@@ -70,30 +77,52 @@ import store from '../../store/index'
 </script>
 
 <style scoped>
+.bar7 {
+    height:30%;
+    flex: 1;
+}
+.bar7 input {
+  width:55%;
+  height: 2rem;
+  border-radius:42px;
+  border:2px solid #e54847;
+  background:#F9F0DA;
+  transition:.3s linear;
+  float:left;
+  font-size: 1.2rem;
+  padding-left: 12%;
+}
+.bar7 input:focus {
+  width:70%;
+  background: #fff;
+}
+.bar7 img{
+    position: absolute;
+    top: 7.5%;
+    left: 10%;
+    border: none;
+    cursor: pointer; 
+}
   .bg{
-    background-color: #C0C0C0;
+    background-color: #eaeaea;
     width: 100%;
+    height: 100%;
+    padding-bottom: 85%;
   }
   .search-wrap {
     display: flex;
-    padding: 5%;
-    height: 50%;
+    height: 30%;
+    padding: 10% 5%;
+    
   }
-  .search-wrap input {
-    flex: 1;
-    text-decoration: none;
-    border: 1px solid #E5E9F2;
-    border-radius: 15px;
-    padding-left: 2rem;
-  }
-  .search-wrap span {
-    margin-left: 5%;
+  .bar7 div {
     font-size: 1.1rem;
-    align-self: center;
+    text-align: center;
     cursor: pointer;
-  }
+    padding-top: 2%;
+  } 
   .hot-search {
-    padding: 5%;
+    padding: 0 5%;
   }
   .hot-search h3 {
     font-size: 1.2rem;

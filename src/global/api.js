@@ -25,5 +25,6 @@ export const api = {
     "movie_celebrity":"/v2/movie/celebrity/", //影人信息
     "new_movies":"/v2/movie/new_movies",//新片榜
     "movie_weekly":"/v2/movie/weekly",//口碑榜
+    "hot":url.staticPath+"dataJson/hot.json",//热门
 }
 
