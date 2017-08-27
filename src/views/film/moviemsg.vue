@@ -74,6 +74,7 @@
               </div>
             </div>
             <p @click="smallComment(movieMsg.id)" class="msg-all-Comment">查看全部短论</p>
+            <Tag></Tag>
           </div>
         </mt-tab-container-item>
 
@@ -105,6 +106,7 @@
                 </footer>
               </div>
               <p @click="comment(movieMsg.id)" class="msg-all-Comment">查看全部影评</p>
+              <Tag class="tag-font"></Tag>
             </div>
         </mt-tab-container-item>
       </mt-tab-container>   
@@ -116,10 +118,13 @@ import star from '../star/star'
 import Title from '../layout/header_title'
 import { api } from '../../global/api'
 import store from '../../store/index'
+import tag from '../layout/tag'
+
   export default {
     components: {
       star:star,
-      T:Title
+      T:Title,
+      Tag:tag,
     },
     data () {
       return {
@@ -458,5 +463,7 @@ import store from '../../store/index'
     height: 30%;
     border-bottom: 1% solid #d6d3d3;
   }
-
+  .tag-font{
+    text-align: center;
+  }
 </style>

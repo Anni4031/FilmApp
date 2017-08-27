@@ -38,7 +38,7 @@
 				    	</div>
 				    	<div class="btn1"><mt-button type="danger" size="large"  @click="all(2)" >查看全部</mt-button></div>
 					</div>
-
+					<Tag></Tag>
 				</div>
 
 
@@ -65,7 +65,7 @@
 			   		<div class="largeCom-wrap">
 			   			<header>{{ hotlist[2].title }}</header>
 			   		  	<div v-for="(item, index) in hotlist[2].subject" class="largeCom-content">
-				   		  	<div class="movie-msg">
+				   		  	<div class="movie-msg" @click="showMoreMsg(item.id)">
 				   		  		<img :src="item.images">
 				   		  		<span v-if="item.name.length<5">{{ item.name }}</span>
 						    	<span v-else>{{ item.name.substr(0,4) }}...</span>		
@@ -76,8 +76,10 @@
 				   		  		<div class="largeCom-content-header">
 				   		  		  <img :src="item.uimages">
 				   		  		  <span>{{item.uname}} </span>
-				   		  		  <star :score="item.star*2" class="largeCom-star"></star>
-				   		  		  <span>{{item.date}}</span>
+				   		  		</div>
+				   		  		<div class="largeCom-content-header">
+				   		  			<star :score="item.star*2" class="largeCom-star"></star>
+				   		  		  	<span>{{item.date}}</span>
 				   		  		</div>
 				   		  		<div v-if="indexarr.indexOf(index)===-1">
 				   		  		  <div v-if="item.content.length>=35">
@@ -86,10 +88,8 @@
 				   		  		  </div>
 				   		  		  <div v-else>
 				   		  		    {{ item.content }}
-				   		  		  </div>
-				   		  		    
+				   		  		  </div>	   		  		    
 				   		  		</div>
-				   		  		
 				   		  		<div v-else >
 				   		  		    {{ item.content }}
 				   		  		    <span @click="showContent(index)" class="msg-all-Comment"><收起</span>
@@ -98,6 +98,7 @@
 			   		    
 			   			</div>
 			   	  </div>
+			   	  <Tag></Tag>
 		   		</div>
 			  </mt-tab-container-item>
 			</mt-tab-container> 
@@ -118,13 +119,16 @@
 import top from '../layout/header'
 import { api } from '../../global/api'
 import star from '../star/star'
+import tag from '../layout/tag'
+
 
 	export default {
 		name:'eye',
 		components:{
 			Top:top,
 			Star:star,
-			lb:Banner
+			lb:Banner,
+			Tag:tag,
 		},
 		data(){
 			return {
@@ -250,7 +254,7 @@ import star from '../star/star'
 	}
 	.content{
 		width: 100%;
-		height: 97%;
+		height: 92%;
 		overflow: auto;
 		text-decoration: none;
 	}
@@ -324,22 +328,23 @@ import star from '../star/star'
 	.movie-msg{
 		flex: 1;
 		width: 30%;
-		padding: 3% 2%;
+		padding: 6% 2%;
 	}
 	.comment-msg{
 
 	}
 	.comment-msg h3 {
-	  font-size: 1.0rem;
+	  font-size: 1.2rem;
 	}
 	.comment-msg img {
-	  width: 15%;
-	  height: 15%;
+	  width: 20%;
+	  height: 20%;
 	  border-radius: 24px;  
 	  margin-right: 2%;
 	}
 	.largeCom-content-header {
 	  display: flex;
+	  padding-bottom: 1%;
 	}
 	.largeCom-content-header span {
 	  align-self: center;

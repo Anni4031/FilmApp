@@ -28,6 +28,7 @@
 				</div>
 			</div>
 		</div>
+		<Tag></Tag>
 	</div>
 </template>
 
@@ -35,10 +36,12 @@
 import star from '../star/star'
 import Title from '../layout/header_title'
 import { api } from '../../global/api'
+import tag from '../layout/tag'
 export default {
 	components: {
       Star: star,
-      T:Title
+      T:Title,
+      Tag:tag,
     },
 	data () {
 	    return {

@@ -39,7 +39,7 @@
           </div>
         </div>
       </section>
-    
+      <Tag></Tag>
   </div>
 </template>
 
@@ -48,6 +48,8 @@ import star from '../star/star'
 import {api } from '../../global/api'
 import Title from '../layout/header_title'
 import store from '../../store/index'
+import tag from '../layout/tag'
+
   export default {
     data () {
       return {
@@ -62,7 +64,7 @@ import store from '../../store/index'
         collectarr:store.state.starcollect.collectInfo
       }
     },
-    components: { star:star,T:Title},
+    components: { star:star,T:Title,Tag:tag},
     mounted: function () {
       this.$http.get(api.movie_celebrity + this.$route.params.id).then(function (response) {
             this.starMsg = response.body

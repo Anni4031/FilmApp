@@ -46,11 +46,10 @@
 								</span>
 							</div>
 							<div class="date">{{item.date}}</div>
-						</div>
+						</div>	
 					</div>
-					<div v-else class="wu">
-						暂无标记相关内容
-					</div>
+					<div v-else class="wu">暂无标记相关内容</div>
+					<Tag></Tag>
 				</div>
 				<div class="bgimg" v-else><img src="../../assets/images/err.png" alt="" width="50%"></div>
 			</mt-tab-container-item>
@@ -64,6 +63,7 @@
 					<div v-else class="wu">
 						暂无标记相关内容
 					</div>
+					<Tag></Tag>
 				</div>
 				<div class="bg" v-else><img src="../../assets/images/err.png" alt="" width="50%"></div>
 			</mt-tab-container-item>
@@ -92,6 +92,7 @@
 					<div v-else class="wu">
 						暂无标记相关内容
 					</div>
+					<Tag></Tag>
 				</div>
 				<div class="bg" v-else><img src="../../assets/images/err.png" alt="" width="50%"></div>
 			</mt-tab-container-item>
@@ -124,6 +125,7 @@
 					<div v-else class="wu">
 						你还未发表任何影评
 					</div>
+					<Tag></Tag>
 				</div>
 				<div class="bg" v-else><img src="../../assets/images/err.png" alt="" width="50%"></div>
 			</mt-tab-container-item>
@@ -141,6 +143,7 @@
 					<div v-else class="wu">
 						暂无标记相关内容  
 					</div>
+					<Tag></Tag>
 				</div>
 				<div class="bg" v-else><img src="../../assets/images/err.png" alt="" width="50%"></div>
 			</mt-tab-container-item>
@@ -155,10 +158,12 @@
 import star from '../star/star'
 import store from '../../store/index'
 import { api } from '../../global/api'
+import tag from '../layout/tag'
 	export default {
 		name:'my',
 		components: {
-		  star
+		  star,
+		  Tag:tag,
 		},
 		data(){
 			return {
@@ -319,7 +324,7 @@ import { api } from '../../global/api'
 	.bg{
 		background: #F8F8F8;
 		width: 100%;
-		height: 99%;
+		height: 92%;
 		overflow-y: auto;
 		text-decoration: none;
 	}

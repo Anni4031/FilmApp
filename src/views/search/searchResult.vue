@@ -17,6 +17,7 @@
 		    </div>
 		  </div>
 		</div>
+    <Tag></Tag>
 	</div>
 </template>
 
@@ -25,6 +26,8 @@ import top from '../layout/header'
 import star from '../star/star'
 import {api } from '../../global/api'
 import store from '../../store/index'
+import tag from '../layout/tag'
+
   export default {
     data () {
       return {
@@ -38,7 +41,8 @@ import store from '../../store/index'
     },
     components: {
       Top:top,
-      star: star
+      star: star,
+      Tag:tag,
     },
     watch: {
       $route: 'showMoreMsg'

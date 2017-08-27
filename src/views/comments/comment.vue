@@ -20,8 +20,6 @@
           <div v-else>
             {{ item.summary }}
           </div>
-            <!-- {{ item.summary }}
-          <span @click="showContent(index)" class="msg-all-Comment"><详情</span> -->
         </div>
         
         <div v-else >
@@ -35,7 +33,7 @@
         </footer>
       </div>
     </section>
-   
+    <Tag></Tag>
   </div>
 </template>
 
@@ -43,6 +41,7 @@
 import star from '../star/star'
 import Title from '../layout/header_title'
 import { api } from '../../global/api'
+import tag from '../layout/tag'
   export default {
     data () {
       return {
@@ -58,7 +57,8 @@ import { api } from '../../global/api'
     },
     components: {
       star: star,
-      T:Title
+      T:Title,
+      Tag:tag,
     },
     mounted: function () {
           this.$http.get(api.movie_basic + this.$route.params.id+"/reviews?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {

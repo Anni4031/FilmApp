@@ -18,17 +18,17 @@ Vue.use(VueResource)
 Vue.use(MintUI)
 Vue.component('star-rating', StarRating);
 // 导航钩子
-router.beforeEach((to, from, next) => {
-  if(store.state.user.userInfo===null){
-  	if (to.path!=='/login' && to.path!=='/register') {
-  		next();
-  	}else{
-  		next("/login");
-  	}
-  }else{
-  	next();
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if(store.state.user.userInfo===null){
+//   	if (to.path!=='/login' && to.path!=='/register') {
+//   		next();
+//   	}else{
+//   		next("/login");
+//   	}
+//   }else{
+//   	next();
+//   }
+// })
 
 /* eslint-disable no-new */
 new Vue({

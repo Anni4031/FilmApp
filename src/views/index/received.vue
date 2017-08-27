@@ -32,6 +32,7 @@
 					</div>
 					<div class="btn"><mt-button type="danger" size="small">购票</mt-button></div>
 				</div>
+				<Tag></Tag>
 			</div>
 			
 		  </mt-tab-container-item>
@@ -58,6 +59,7 @@
 						<mt-button type="primary" size="small" v-model="text" @click="btnclick(index,soonitem)" v-else>想看</mt-button>
 					</div>
 				</div>
+				<Tag></Tag>
 			</div> 
 		  </mt-tab-container-item>
 		</mt-tab-container> 
@@ -78,6 +80,7 @@ import top from '../layout/header'
 import { api } from '../../global/api'
 import star from '../star/star'
 import store from '../../store/index'
+import tag from '../layout/tag'
 
 
 	export default {
@@ -86,6 +89,7 @@ import store from '../../store/index'
 			Top:top,
 			Star:star,
 			lb:Banner,
+			Tag:tag
 		},
 		data(){
 			return {
@@ -157,21 +161,19 @@ import store from '../../store/index'
 						}
 						store.dispatch('setWantInfo',soonitem); 
 					}else{
-						this.$toast({
-						    message: '想看失败,该电影已想看',
-						    position: 'bottom',
-						    duration: 2000,
-						    className:"success"				
+						this.$messagebox({
+						  title: '提示',
+						  message: '想看失败,该电影已想看!',
+						  showCancelButton: false
 						});	
 					}
 					
 				
 				}else{
-					this.$toast({
-					    message: '还未登录,请先登录!',
-					    position: 'bottom',
-					    duration: 2000,
-					    className:"errtoast"				
+					this.$messagebox({
+					  title: '提示',
+					  message: '还未登录,请先登录!',
+					  showCancelButton: false
 					});	
 				}
 				
