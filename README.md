@@ -9,7 +9,9 @@
 技术栈：webpack + vue + vue-router + less + vuex + mintUI + vue-star-rating</br>
 预览效果：</br>
 ### 上映电影信息和电影详情
-![image](https://github.com/buptsky/vue-douban-movie/raw/master/screenshots/movie-show.gif)
+![image](https://github.com/Anni4031/FilmApp/blob/master/gifimages/received.gif)
+![image](https://github.com/Anni4031/FilmApp/blob/master/gifimages/movieMsg.gif)
+
 
 ## 项目功能
 
