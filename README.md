@@ -12,8 +12,11 @@
 ![image](https://github.com/Anni4031/FilmApp/blob/master/gif/Received.gif)
 ![image](https://github.com/Anni4031/FilmApp/blob/master/gif/movieMsg.gif)
 ### 影星信息和短论、影评
-![image](https://github.com/Anni4031/FilmApp/blob/master/gif/Received.gif)
-![image](https://github.com/Anni4031/FilmApp/blob/master/gif/movieMsg.gif)
+![image](https://github.com/Anni4031/FilmApp/blob/master/gif/starMsg.gif)
+![image](https://github.com/Anni4031/FilmApp/blob/master/gif/comment.gif)
+### 我的和找片
+![image](https://github.com/Anni4031/FilmApp/blob/master/gif/my.gif)
+![image](https://github.com/Anni4031/FilmApp/blob/master/gif/eye.gif)
 
 
 ## 项目功能
