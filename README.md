@@ -7,7 +7,7 @@
 脚手架：vue-cli</br>
 模板：vue2</br>
 技术栈：webpack + vue + vue-router + less + vuex + mintUI + vue-star-rating</br>
-预览效果：</br>
+部分效果图：</br>
 ### 上映电影信息和电影详情
 ![image](https://github.com/Anni4031/FilmApp/blob/master/gif/Received.gif)
 ![image](https://github.com/Anni4031/FilmApp/blob/master/gif/movieMsg.gif)
@@ -17,6 +17,9 @@
 ### 我的和找片
 ![image](https://github.com/Anni4031/FilmApp/blob/master/gif/my.gif)
 ![image](https://github.com/Anni4031/FilmApp/blob/master/gif/eye.gif)
+### 搜索和设置
+![image](https://github.com/Anni4031/FilmApp/blob/master/gif/search.gif)
+![image](https://github.com/Anni4031/FilmApp/blob/master/gif/set.gif)
 
 
 ## 项目功能
