@@ -11,6 +11,9 @@
 ### 上映电影信息和电影详情
 ![image](https://github.com/Anni4031/FilmApp/blob/master/gif/Received.gif)
 ![image](https://github.com/Anni4031/FilmApp/blob/master/gif/movieMsg.gif)
+### 影星信息和短论、影评
+![image](https://github.com/Anni4031/FilmApp/blob/master/gif/Received.gif)
+![image](https://github.com/Anni4031/FilmApp/blob/master/gif/movieMsg.gif)
 
 
 ## 项目功能
