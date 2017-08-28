@@ -6,8 +6,17 @@
 
 脚手架：vue-cli</br>
 模板：vue2</br>
-技术栈：webpack + vue + vue-router + vuex + less + vuex</br>
+技术栈：webpack + vue + vue-router + less + vuex + mintUI + vue-star-rating</br>
 预览效果：</br>
+
+## 项目功能
+
+- 正在热映、即将上映、榜单、热门、我的、电影详情页、影人详情页、短论、影评、搜索页和搜索结果展示
+- 登录、注册
+- 收藏/取消收藏(影人)、写影评、设置、已看过、想看
+- 搜索
+
+
 
 ## Build Setup
 
