@@ -143,9 +143,10 @@
 					<div v-else class="wu">
 						暂无标记相关内容  
 					</div>
-					<Tag></Tag>
+					
 				</div>
 				<div class="bg" v-else><img src="../../assets/images/err.png" alt="" width="50%"></div>
+				<Tag></Tag>
 			</mt-tab-container-item>
 		</mt-tab-container> 
 	</div>
@@ -331,7 +332,7 @@ import tag from '../layout/tag'
 	.bg{
 		background: #F8F8F8;
 		width: 100%;
-		height: 92%;
+		height: 100%;
 		overflow-y: auto;
 		text-decoration: none;
 	}
