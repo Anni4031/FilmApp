@@ -46,7 +46,7 @@ proxyTable: {
 - /v2/movie/weekly?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd 口碑榜
 - /v2/movie/subject/:id  单个电影信息
 - /v2/movie/celebrity/:id  单个影人信息
-- /v2/movie/search?q={text} 电影搜索
+- /v2/movie/search?q={text}&tag={text} 电影搜索
 
 ### vue-resource
 
@@ -79,6 +79,8 @@ npm run e2e
 
 # run all tests
 npm test
+```
+## 项目布局
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
