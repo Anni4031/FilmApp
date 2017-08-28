@@ -16,7 +16,45 @@
 - 收藏/取消收藏(影人)、写影评、设置、已看过、想看
 - 搜索
 
+## Mint-ui
 
+ui库使用的是mint-ui,直接引用使用
+``` bash
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(MintUI)
+```
+## 请求豆瓣api
+
+在proxyTable中配置代理
+``` bash
+proxyTable: {
+        '/v2': {
+            target: 'http://api.douban.com',
+            changeOrigin : true,
+            pathRewrite: {
+              '^/v2': '/v2'
+            }
+        }
+    },
+```
+项目中使用了以下api
+- /v2/movie/in_theaters 正在上映的电影
+- /v2/movie/coming_soon 即将上映的电影
+- /v2/movie/top250 Top250
+- /v2/movie/new_movies?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd 新片榜
+- /v2/movie/weekly?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd 口碑榜
+- /v2/movie/subject/:id  单个电影信息
+- /v2/movie/celebrity/:id  单个影人信息
+- /v2/movie/search?q={text} 电影搜索
+
+### vue-resource
+
+这里使用vue-resource进行数据交互
+
+## Vuex
+
+vuex用来管理全局状态，用起来很方便，可以查看vuex文档进行学习
 
 ## Build Setup
 
