@@ -58,7 +58,7 @@
 			   	<div class="bg" v-if="user!=null">
 					<header>{{ number }}部</header>
 					<div v-if="number!=0">
-						
+						该功能还未实现
 					</div>
 					<div v-else class="wu">
 						暂无标记相关内容
@@ -172,11 +172,11 @@ import tag from '../layout/tag'
 				number3:0,
 				number4:0,
 				number5:0,
-				user:store.state.loginuser.user,
-				wantlist:store.state.want.wantInfo,
-				collectarr:store.state.starcollect.collectInfo,
-				commentlist:store.state.write.writeInfo,
-				watchedlist:store.state.watched.watchedInfo,
+				user:store.state.loginuser.user,//登录用户信息
+				wantlist:store.state.want.wantInfo,//想看列表
+				collectarr:store.state.starcollect.collectInfo,//收藏影人列表
+				commentlist:store.state.write.writeInfo,//写影评列表
+				watchedlist:store.state.watched.watchedInfo,//已看过列表
 				contentShow:false,
 				indexarr:[],
 			}
@@ -189,6 +189,7 @@ import tag from '../layout/tag'
 			console.log("my",this.user)
 		},
 		methods:{
+			//想看
 			showWant:function(){
 				if(this.user==null){
 					this.wantlist=null
@@ -198,6 +199,7 @@ import tag from '../layout/tag'
 					vm.number=vm.wantlist.length
 				}
 			},
+			//收藏影人
 			showStar:function(){
 				if(this.user==null){
 					this.collectarr=null
@@ -208,6 +210,7 @@ import tag from '../layout/tag'
 					console.log("collectarr:",this.collectarr)
 				}
 			},
+			// 影评
 			showcomment(){
 				if(this.user==null){
 					this.commentlist=null
@@ -218,6 +221,7 @@ import tag from '../layout/tag'
 					console.log("commentlist:",this.commentlist)
 				}
 			},
+			// 已看过
 			showWatched(){
 				if(this.user==null){
 					this.watchedlist=null
@@ -228,6 +232,7 @@ import tag from '../layout/tag'
 					console.log("watchedlist:",this.watchedlist)
 				}
 			},
+
 			gologin:function(){
 				this.$router.push('/login')
 			},
@@ -239,6 +244,7 @@ import tag from '../layout/tag'
 			  const path = '/starmsg/' + str
 			  this.$router.push({path: path})
 			},
+			// 显示全部内容(影评)
 			showContent: function (ind) {
 			  if(this.contentShow==false){
 			    this.indexarr.push(ind)
@@ -254,6 +260,7 @@ import tag from '../layout/tag'
 			  }
 			  
 			},
+			// 设置
 			setclick:function(){
 				this.$router.push('/set')
 			}
@@ -346,7 +353,7 @@ import tag from '../layout/tag'
 	}
 	.wu{
 		padding-top: 30%;
-		padding-bottom: 36%;
+		padding-bottom: 30%;
 		margin: 20%;
 	}
 	.box_content{

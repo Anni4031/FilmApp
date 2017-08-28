@@ -11,8 +11,6 @@
 			<mt-field placeholder="昵称" v-model="reg.username" ></mt-field><br>
 			<input type="checkbox" @click="change" v-model="checked">已阅读并同意用户使用协议
 		</div>
-		<!-- <mt-checklist  :options="['已阅读并同意用户使用协议']">
-		</mt-checklist> -->
 		
 		<mt-button type="primary" class="btn" :disabled="status" @click="regClick">注册</mt-button><br>
 

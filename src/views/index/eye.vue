@@ -122,6 +122,7 @@ import star from '../star/star'
 import tag from '../layout/tag'
 
 
+
 	export default {
 		name:'eye',
 		components:{
@@ -138,14 +139,14 @@ import tag from '../layout/tag'
 				listImg: [
                 	{url: a}, {url: b}, {url: c},{url:d},{url:e}
                 ],
-                title1:"",
-                title2:"",
+                title1:"",//新片榜
+                title2:"",//top250
                 
                 weeklylist:{
                 	title:'',
                 },
                 listarr:[],
-                hotlist:[],
+                hotlist:[],//热门列表
                 contentShow:false,
                 indexarr:[]
                 
@@ -254,7 +255,7 @@ import tag from '../layout/tag'
 	}
 	.content{
 		width: 100%;
-		height: 92%;
+		height: 96%;
 		overflow: auto;
 		text-decoration: none;
 	}

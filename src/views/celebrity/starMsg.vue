@@ -66,6 +66,7 @@ import tag from '../layout/tag'
     },
     components: { star:star,T:Title,Tag:tag},
     mounted: function () {
+      // 某个影星资料
       this.$http.get(api.movie_celebrity + this.$route.params.id).then(function (response) {
             this.starMsg = response.body
             console.log(response)
@@ -84,12 +85,14 @@ import tag from '../layout/tag'
       backLastPage: function () {
         window.history.go(-1)
       },
+      // 收藏
       collect(msg){
         if(msg!=null){
           store.dispatch("setCollectInfo",msg)
           this.isShow=false   
         }
       },
+      // 取消收藏
       delCollect(msg){
         this.isShow=true;
         let suoyin=this.collectarr.indexOf(msg)

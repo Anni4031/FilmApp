@@ -53,7 +53,7 @@ export default {
 	    	],
 	    	datalist:{
 	    		title:"",
-	    	}
+	    	}//三大榜单之一的全部内容
 	    }   
 	},
 	methods:{

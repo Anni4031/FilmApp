@@ -45,7 +45,7 @@
 			
 		},
 		mounted(){
-			this.selected=this.$route.name
+			this.selected=this.$route.name//当前路径名与导航栏名一致,让其高亮
 		},
 	}
 </script>

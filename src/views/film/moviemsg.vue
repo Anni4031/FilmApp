@@ -129,7 +129,7 @@ import tag from '../layout/tag'
     data () {
       return {
         selected:"1",
-        user:store.state.loginuser.user,
+        user:store.state.loginuser.user,//登录用户信息
         status1:false,
         status2:false,   
         commentsMsg: {
@@ -189,6 +189,7 @@ import tag from '../layout/tag'
     },
     methods: {
       getMovie(){
+        // 某个电影
         this.$http.get(api.movie_basic + this.$route.params.id ).then(function (response) {
               const _this = this
                _this.movieMsg = response.body
@@ -196,6 +197,7 @@ import tag from '../layout/tag'
         }).catch(function (response) {
                 console.log(response)
         });
+        // 短评
         this.$http.get(api.movie_basic + this.$route.params.id+"/comments?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
               const _this = this
                _this.comments = response.body.comments
@@ -204,6 +206,7 @@ import tag from '../layout/tag'
         }).catch(function (response) {
                 console.log(response)
         });
+        // 影评
         this.$http.get(api.movie_basic + this.$route.params.id+"/reviews?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
                   this.commentsMsg = response.body
                   console.log("movie_comments影评接口数据为:",response)
@@ -242,6 +245,7 @@ import tag from '../layout/tag'
         }
         
       },
+      // 写影评
       write:function(str){
         if(this.user!=null){
             const path = '/moviemsg/' + str + '/writecomment'
@@ -255,6 +259,7 @@ import tag from '../layout/tag'
           }); 
         }
       },
+      // 想看
       want(str){
           this.status1=true;
           let date=new Date()
@@ -269,6 +274,7 @@ import tag from '../layout/tag'
           let par=JSON.parse(JSON.stringify(str))
           store.dispatch('setWantInfo',par); 
       },
+      // 已想看
       watched(str){
           this.status2=true;
           let date=new Date()

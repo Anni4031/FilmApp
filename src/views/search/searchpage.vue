@@ -1,11 +1,7 @@
 <template>
   <div class="bg">
     <div class="search-wrap">
-      <!-- <mt-search  v-model="query.q"  cancel-text="取消"></mt-search> -->
-      <!-- <input id="p" v-model="query.q" @keyup.enter="submit()" type="search">
-      -->
       <div class="search bar7">
-        
         <input type="text" v-model="query.q" @keyup.enter="submit()" ><img src="../../assets/images/search.png" alt="" width="7%">
         <div @click="notSubmit()">取消</div>
         

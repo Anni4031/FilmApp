@@ -48,6 +48,7 @@ import tag from '../layout/tag'
       $route: 'showMoreMsg'
     },
     methods: {
+      // 搜索结果
       showMoreMsg: function () {
         let par=JSON.parse(JSON.stringify(this.val))
         this.$http.get(api.movieSearch,{params: par}).then(function (response) {

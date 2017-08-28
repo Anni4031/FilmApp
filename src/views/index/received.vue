@@ -13,7 +13,7 @@
 		<mt-tab-container v-model="selected">
 		
 		  <mt-tab-container-item id="1">
-			<div class="box">
+			<div class="box"  ref="menuWrapper">
 				<div class="box_content" v-for="(item, index) in in_theaterslist" @click="showMoreMsg(item.id)">
 					<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
 					<div class="box_right">
@@ -82,6 +82,8 @@ import star from '../star/star'
 import store from '../../store/index'
 import tag from '../layout/tag'
 
+import BScroll from 'better-scroll'
+
 
 	export default {
 		name:'received',
@@ -95,24 +97,35 @@ import tag from '../layout/tag'
 			return {
 				listImg: [
                 	{url: a}, {url: b}, {url: c},{url:d}
-                ],
+                ],//轮播图片路径集合
 				list: [],
 				selected:"1",
 				coming_soonlist:null,
 				in_theaterslist:null,
 				text:"想看",
-				status:false,
+				status:false,//按钮状态
 				indexarr:[],
-				user:store.state.loginuser.user,
-				wantlist:store.state.want.wantInfo				
-				
+				user:store.state.loginuser.user,//登录用户信息
+				wantlist:store.state.want.wantInfo,	//想看信息			
 			}
 		},
 		mounted(){
 			this.getData()
+			this.$nextTick(()=>{
+				this._initScroll() 
+			});
+
+
 		},
 		methods:{
+			// 初始化 better-scroll
+	    	_initScroll() {
+	    		this.menuScroll = new BScroll(this.$refs.menuWrapper,{
+	    			click:true        //默认派发点击事件
+	    		});
+	    	},
 			getData(){
+				//请求豆瓣热映接口  
 				this.$http.get(api.in_theaters).then(function (response) {
 			        let data=response.body;
 			        let vm=this;
@@ -121,6 +134,7 @@ import tag from '../layout/tag'
 			    }).catch(function (response) {
 			          console.log(response)
 			    });
+			    //请求豆瓣即将上映接口  
 			    this.$http.get(api.coming_soon).then(function (response) {
 			        let data=response.body;
 			        let vm=this;
@@ -139,7 +153,6 @@ import tag from '../layout/tag'
 				let date=new Date()
 				console.log("时间:",date)
 				let year=date.getFullYear(); 
-				console.log("year",year)
 				let month=date.getMonth();
 				let day=date.getDate();
 				let hours=date.getHours();
@@ -148,18 +161,18 @@ import tag from '../layout/tag'
 				let date1=""+year+"年"+month+"月"+day+"日 "+hours+":"+minutes+":"+seconds+"";
 				soonitem.date=date1
 				let idarr=[];
-				if(user!=null){
+				if(user!=null){//判断未登录,不能添加想看数据
 					for(let i=0;i<this.wantlist.length;i++){
 						idarr.push(this.wantlist[i].id)
 					}
-					if(idarr.indexOf(soonitem.id)==-1){
+					if(idarr.indexOf(soonitem.id)==-1){//判断想看列表里没有当前数据时,才添加进去
 						this.indexarr.push(index)
 						console.log("indexarr--",this.indexarr)
 						if(this.text=="想看"){
 							this.status=true;
 							this.text="已想看";
 						}
-						store.dispatch('setWantInfo',soonitem); 
+						store.dispatch('setWantInfo',soonitem);//传参 
 					}else{
 						this.$messagebox({
 						  title: '提示',
@@ -167,8 +180,6 @@ import tag from '../layout/tag'
 						  showCancelButton: false
 						});	
 					}
-					
-				
 				}else{
 					this.$messagebox({
 					  title: '提示',
@@ -176,8 +187,9 @@ import tag from '../layout/tag'
 					  showCancelButton: false
 					});	
 				}
-				
-			}
+			},
+		},
+		created(){
 			
 		}
 	}

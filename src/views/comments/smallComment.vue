@@ -44,6 +44,7 @@ import tag from '../layout/tag'
       Tag:tag,
     },
     mounted: function () {
+      // 短评
       this.$http.get(api.movie_basic + this.$route.params.id+"/comments?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
                this.commentsMsg = response.body
                this.commentsMsg.subject=response.body.subject

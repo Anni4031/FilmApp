@@ -61,6 +61,7 @@ import tag from '../layout/tag'
       Tag:tag,
     },
     mounted: function () {
+          // 影评
           this.$http.get(api.movie_basic + this.$route.params.id+"/reviews?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
                     this.commentsMsg = response.body
                   console.log("movie_comments影评接口数据为:",response)

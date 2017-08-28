@@ -29,6 +29,7 @@ import store from '../../store/index'
 		},
 		methods:{
 			loginClick(){
+				// 登录校验
 				let  par = JSON.parse(JSON.stringify(this.loginuser)) ;
 				let earr=[];
 			    let parr=[];
