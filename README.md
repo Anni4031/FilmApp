@@ -2,6 +2,13 @@
 
 > A Vue.js project
 
+## 项目介绍
+
+脚手架：vue-cli</br>
+模板：vue2</br>
+技术栈：webpack + vue + vue-router + vuex + less + vuex</br>
+预览效果：</br>
+
 ## Build Setup
 
 ``` bash
