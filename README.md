@@ -66,15 +66,29 @@ proxyTable: {
 如:
 ``` bash
 this.$http.jsonp(api.movietop).then(function (response) {
-			        let data= response.body;
-			        this.title1=data.title;
-			        this.listarr.push(data)
-			        console.log(this.listarr)
-			        console.log("movietop接口数据为:",response)
-			        
-			    }).catch(function (response) {
-			          console.log(response)
-			    });
+    let data= response.body;
+    this.title1=data.title;
+    this.listarr.push(data)
+    console.log(this.listarr)
+    console.log("movietop接口数据为:",response)
+
+}).catch(function (response) {
+      console.log(response)
+});
+api.js
+let filmApiBaseUrl="http://api.douban.com" 
+export const api = {   
+    "in_theaters":filmApiBaseUrl+"/v2/movie/in_theaters",  //正在热映 获取电影列表
+    "movieSearch":filmApiBaseUrl+"/v2/movie/search",    //搜索
+    "coming_soon":filmApiBaseUrl+"/v2/movie/coming_soon", //即将上映
+    "movietop":filmApiBaseUrl+"/v2/movie/top250",  //排行250
+    "movie_basic":filmApiBaseUrl+"/v2/movie/subject/", //电影条目
+    "movie_box":filmApiBaseUrl+"/v2/movie/us_box", //北美榜
+    "movie_celebrity":filmApiBaseUrl+"/v2/movie/celebrity/", //影人信息
+    "new_movies":filmApiBaseUrl+"/v2/movie/new_movies",//新片榜
+    "movie_weekly":filmApiBaseUrl+"/v2/movie/weekly",//口碑榜
+    "hot":url.staticPath+"dataJson/hot.json",//热门
+}
  ```      
 ### vue-resource
 
