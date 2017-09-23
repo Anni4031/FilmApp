@@ -39,8 +39,7 @@ import 'mint-ui/lib/style.css'
 Vue.use(MintUI)
 ```
 ## 请求豆瓣api
-
-在proxyTable中配置代理
+第一种方式:在proxyTable中配置代理
 ``` bash
 proxyTable: {
         '/v2': {
@@ -52,6 +51,7 @@ proxyTable: {
         }
     },
 ```
+
 项目中使用了以下api
 - /v2/movie/in_theaters 正在上映的电影
 - /v2/movie/coming_soon 即将上映的电影
@@ -62,6 +62,20 @@ proxyTable: {
 - /v2/movie/celebrity/:id  单个影人信息
 - /v2/movie/search?q={text}&tag={text} 电影搜索
 
+第二种方式:jsonp
+如:
+``` bash
+this.$http.jsonp(api.movietop).then(function (response) {
+			        let data= response.body;
+			        this.title1=data.title;
+			        this.listarr.push(data)
+			        console.log(this.listarr)
+			        console.log("movietop接口数据为:",response)
+			        
+			    }).catch(function (response) {
+			          console.log(response)
+			    });
+ ```      
 ### vue-resource
 
 这里使用vue-resource进行数据交互
