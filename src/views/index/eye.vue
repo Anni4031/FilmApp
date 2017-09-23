@@ -1,107 +1,111 @@
 <template>
 	<div class="eye">
 		<Top></Top>
-		<lb :listImg="listImg"></lb>
-		<div  class="container" >
-			<mt-navbar v-model="selected">
-			  <mt-tab-item id="1">榜单</mt-tab-item>
-			  <mt-tab-item id="2">热门</mt-tab-item>
-			</mt-navbar>
-			<mt-tab-container v-model="selected">
-			  <mt-tab-container-item id="1">
-			  	<div class="content">
-			  		<div class="box" v-for="(itemlist,index) in listarr">	
-						<header v-if="index==1">{{title1}}</header>
-						<header v-else>{{title2}}</header>
-				    	<div class="box_content" v-for="(item, index) in itemlist.subjects" v-if="index<5" @click="showMoreMsg(item.id)">
-				    		<div class="number">{{ index+1 }}</div>
-				    		<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
-				    		<div class="box_right">
-				    			<h2>{{ item.title }}</h2>
-				    			<Star :score="item.rating.average"></Star>
-				    			<span>{{ item.rating.average }}分</span><br>
-				    		</div>
-				    	</div>
-				    	<div class="btn1"><mt-button type="danger" size="large" @click="all(index)">查看全部</mt-button></div>
-					</div>
-
-					<div class="box">	
-						<header>{{weeklylist.title}}</header>
-				    	<div class="box_content" v-for="(item, index) in weeklylist.subjects" v-if="index<5" @click="showMoreMsg(item.subject.id)">
-				    		<div class="number">{{ index+1 }}</div>
-				    		<div class="box_img"><img :src="item.subject.images.small" ></div>
-				    		<div class="box_right">
-				    			<h2>{{ item.subject.title }}</h2>
-				    			<Star :score="item.subject.rating.average"></Star>
-				    			<span>{{ item.subject.rating.average }}分</span>
-				    		</div>
-				    	</div>
-				    	<div class="btn1"><mt-button type="danger" size="large"  @click="all(2)" >查看全部</mt-button></div>
-					</div>
-					<Tag></Tag>
-				</div>
-
-
-			  </mt-tab-container-item>
+		<div class="bg">
 			
-			  <mt-tab-container-item id="2">
-			  	<div class="content">
-					<div class="box" >
-				   		<header>{{ hotlist[0].title }}</header>
-				   		<div class="item" v-for="(item,index) in hotlist[0].subject" @click="starMsg(item.id)">
-							<img :src="item.images" ><br>
-					    	<span>{{ item.name }}</span>		
-				   		</div>	
-			   		</div>
-					<div class="box">
-				   		<header>{{ hotlist[1].title }}</header>
-				   		<div class="item" v-for="(item,index) in hotlist[1].subject" @click="showMoreMsg(item.id)">
-							<img :src="item.images" ><br>
-					    	<span v-if="item.name.length<5">{{ item.name }}</span>
-					    	<span v-else>{{ item.name.substr(0,4) }}...</span>		
-				   		</div>	
-			   		</div>
+		
+			<lb :listImg="listImg"></lb>
+			 <div  class="container" >
+				<mt-navbar v-model="selected">
+				  <mt-tab-item id="1">榜单</mt-tab-item>
+				  <mt-tab-item id="2">热门</mt-tab-item>
+				</mt-navbar>
+				<mt-tab-container v-model="selected">
+				  <mt-tab-container-item id="1">
+					<div class="content">
+				  	 	<div class="box" v-for="(itemlist,index) in listarr">	
+							<header v-if="index==1">{{title1}}</header>
+							<header v-else>{{title2}}</header>
+					    	<div class="box_content" v-for="(item, index) in itemlist.subjects" v-if="index<5" @click="showMoreMsg(item.id)">
+					    		<div class="number">{{ index+1 }}</div>
+					    		<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
+					    		<div class="box_right">
+					    			<h2>{{ item.title }}</h2>
+					    			<Star :score="item.rating.average"></Star>
+					    			<span>{{ item.rating.average }}分</span><br>
+					    		</div>
+					    	</div>
+					    	<div class="btn1"><mt-button type="danger" size="large" @click="all(index)">查看全部</mt-button></div>
+						</div>
 
-			   		<div class="largeCom-wrap">
-			   			<header>{{ hotlist[2].title }}</header>
-			   		  	<div v-for="(item, index) in hotlist[2].subject" class="largeCom-content">
-				   		  	<div class="movie-msg" @click="showMoreMsg(item.id)">
-				   		  		<img :src="item.images">
-				   		  		<span v-if="item.name.length<5">{{ item.name }}</span>
+						 <div class="box">	
+							<header>{{weeklylist.title}}</header>
+					    	<div class="box_content" v-for="(item, index) in weeklylist.subjects" v-if="index<5" @click="showMoreMsg(item.subject.id)">
+					    		<div class="number">{{ index+1 }}</div>
+					    		<div class="box_img"><img :src="item.subject.images.small" ></div>
+					    		<div class="box_right">
+					    			<h2>{{ item.subject.title }}</h2>
+					    			<Star :score="item.subject.rating.average"></Star>
+					    			<span>{{ item.subject.rating.average }}分</span>
+					    		</div>
+					    	</div>
+					    	<div class="btn1"><mt-button type="danger" size="large"  @click="all(2)" >查看全部</mt-button></div>
+						</div> 
+						<Tag></Tag>
+					</div>
+
+
+				  </mt-tab-container-item>
+				
+				  <mt-tab-container-item id="2">
+				  	<div class="content">
+						<div class="box" >
+					   		<header>{{ hotlist[0].title }}</header>
+					   		<div class="item" v-for="(item,index) in hotlist[0].subject" @click="starMsg(item.id)">
+								<img :src="item.images" ><br>
+						    	<span>{{ item.name }}</span>		
+					   		</div>	
+				   		</div>
+						<div class="box">
+					   		<header>{{ hotlist[1].title }}</header>
+					   		<div class="item" v-for="(item,index) in hotlist[1].subject" @click="showMoreMsg(item.id)">
+								<img :src="item.images" ><br>
+						    	<span v-if="item.name.length<5">{{ item.name }}</span>
 						    	<span v-else>{{ item.name.substr(0,4) }}...</span>		
-				   		  	</div>
-				   		  	<div class="comment-msg">
-				   		  		<h3 v-if="item.title.length<=15">标题：{{item.title}}</h3>
-				   		  		<h3 v-else>标题：<span>{{item.title.substr(0,14)}}...</span></h3>
-				   		  		<div class="largeCom-content-header">
-				   		  		  <img :src="item.uimages">
-				   		  		  <span>{{item.uname}} </span>
-				   		  		</div>
-				   		  		<div class="largeCom-content-header">
-				   		  			<star :score="item.star*2" class="largeCom-star"></star>
-				   		  		  	<span>{{item.date}}</span>
-				   		  		</div>
-				   		  		<div v-if="indexarr.indexOf(index)===-1">
-				   		  		  <div v-if="item.content.length>=35">
-				   		  		    {{ item.content.substr(0,34) }}...
-				   		  		  <span @click="showContent(index)" class="msg-all-Comment"><详情</span>
-				   		  		  </div>
-				   		  		  <div v-else>
-				   		  		    {{ item.content }}
-				   		  		  </div>	   		  		    
-				   		  		</div>
-				   		  		<div v-else >
-				   		  		    {{ item.content }}
-				   		  		    <span @click="showContent(index)" class="msg-all-Comment"><收起</span>
-				   		  		</div>
-				   		  	</div>
-			   		    
-			   			</div>
-			   	  </div>
-			   	  <Tag></Tag>
-		   		</div>
-			  </mt-tab-container-item>
-			</mt-tab-container> 
+					   		</div>	
+				   		</div>
+
+				   		<div class="largeCom-wrap">
+				   			<header>{{ hotlist[2].title }}</header>
+				   		  	<div v-for="(item, index) in hotlist[2].subject" class="largeCom-content">
+					   		  	<div class="movie-msg" @click="showMoreMsg(item.id)">
+					   		  		<img :src="item.images">
+					   		  		<span v-if="item.name.length<5">{{ item.name }}</span>
+							    	<span v-else>{{ item.name.substr(0,4) }}...</span>		
+					   		  	</div>
+					   		  	<div class="comment-msg">
+					   		  		<h3 v-if="item.title.length<=15">标题：{{item.title}}</h3>
+					   		  		<h3 v-else>标题：<span>{{item.title.substr(0,14)}}...</span></h3>
+					   		  		<div class="largeCom-content-header">
+					   		  		  <img :src="item.uimages">
+					   		  		  <span>{{item.uname}} </span>
+					   		  		</div>
+					   		  		<div class="largeCom-content-header">
+					   		  			<star :score="item.star*2" class="largeCom-star"></star>
+					   		  		  	<span>{{item.date}}</span>
+					   		  		</div>
+					   		  		<div v-if="indexarr.indexOf(index)===-1">
+					   		  		  <div v-if="item.content.length>=35">
+					   		  		    {{ item.content.substr(0,34) }}...
+					   		  		  <span @click="showContent(index)" class="msg-all-Comment"><详情</span>
+					   		  		  </div>
+					   		  		  <div v-else>
+					   		  		    {{ item.content }}
+					   		  		  </div>	   		  		    
+					   		  		</div>
+					   		  		<div v-else >
+					   		  		    {{ item.content }}
+					   		  		    <span @click="showContent(index)" class="msg-all-Comment"><收起</span>
+					   		  		</div>
+					   		  	</div>
+				   		    
+				   			</div>
+				   	  </div>
+				   	  <Tag></Tag>
+			   		</div>
+				  </mt-tab-container-item>
+				</mt-tab-container> 
+			</div> 
 		</div>
 	</div>
 </template>
@@ -155,8 +159,9 @@ import tag from '../layout/tag'
 		},
 		methods:{
 			getData(){
+				
 				//top250
-				this.$http.get(api.movietop).then(function (response) {
+				this.$http.jsonp(api.movietop).then(function (response) {
 			        let data= response.body;
 			        this.title1=data.title;
 			        this.listarr.push(data)
@@ -167,7 +172,7 @@ import tag from '../layout/tag'
 			          console.log(response)
 			    });
 			    //新片榜
-			    this.$http.get(api.new_movies+'?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd').then(function (response) {
+			    this.$http.jsonp(api.new_movies+'?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd').then(function (response) {
 			        let data= response.body;
 			        this.title2=data.title;
 			        this.listarr.push(data)
@@ -179,7 +184,7 @@ import tag from '../layout/tag'
 			    });
 			    
 			    //口碑榜
-			    this.$http.get(api.movie_weekly+'?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd').then(function (response) {
+			    this.$http.jsonp(api.movie_weekly+'?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd').then(function (response) {
 			        this.weeklylist = response.body;
 			        console.log("weeklylist接口数据为:",response)
 			        
@@ -233,6 +238,9 @@ import tag from '../layout/tag'
 </script>
 
 <style scoped>
+.bg{
+		background: #FFF;
+	}
 	
 	h2{
 		font-size: 1.2rem;

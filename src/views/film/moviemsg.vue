@@ -190,7 +190,7 @@ import tag from '../layout/tag'
     methods: {
       getMovie(){
         // 某个电影
-        this.$http.get(api.movie_basic + this.$route.params.id ).then(function (response) {
+        this.$http.jsonp(api.movie_basic + this.$route.params.id ).then(function (response) {
               const _this = this
                _this.movieMsg = response.body
               console.log("movie_basic接口数据为:",response)
@@ -198,7 +198,7 @@ import tag from '../layout/tag'
                 console.log(response)
         });
         // 短评
-        this.$http.get(api.movie_basic + this.$route.params.id+"/comments?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
+        this.$http.jsonp(api.movie_basic + this.$route.params.id+"/comments?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
               const _this = this
                _this.comments = response.body.comments
               console.log("movie_comments短评接口数据为:",response)
@@ -207,7 +207,7 @@ import tag from '../layout/tag'
                 console.log(response)
         });
         // 影评
-        this.$http.get(api.movie_basic + this.$route.params.id+"/reviews?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
+        this.$http.jsonp(api.movie_basic + this.$route.params.id+"/reviews?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd" ).then(function (response) {
                   this.commentsMsg = response.body
                   console.log("movie_comments影评接口数据为:",response)
         }).catch(function (response) {

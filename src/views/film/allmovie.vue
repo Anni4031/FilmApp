@@ -58,7 +58,7 @@ export default {
 	},
 	methods:{
 	  	showData(){
-	  		this.$http.get(this.apiarr[this.bangdan]).then(function (response) {
+	  		this.$http.jsonp(this.apiarr[this.bangdan]).then(function (response) {
 	  		        this.datalist = response.body
 	  		        console.log("三大榜单之一接口数据为:"+response.body)
 	  		    })

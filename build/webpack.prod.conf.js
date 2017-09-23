@@ -56,6 +56,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         ? 'index.html'
         : config.build.index,
       template: 'index.html',
+      favicon:path.resolve('./favicon.ico'),
       inject: true,
       minify: {
         removeComments: true,

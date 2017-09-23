@@ -67,7 +67,7 @@ import tag from '../layout/tag'
     components: { star:star,T:Title,Tag:tag},
     mounted: function () {
       // 某个影星资料
-      this.$http.get(api.movie_celebrity + this.$route.params.id).then(function (response) {
+      this.$http.jsonp(api.movie_celebrity + this.$route.params.id).then(function (response) {
             this.starMsg = response.body
             console.log(response)
             console.log("movie_celebrity接口数据为:"+response)

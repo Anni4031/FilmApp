@@ -2,67 +2,71 @@
 	<div class="received">
 		
 		<Top></Top>
-		<lb :listImg="listImg"></lb>
-	
-		<div class="container">
-		<mt-navbar v-model="selected">
-		  <mt-tab-item id="1">正在热映</mt-tab-item>
-		  <mt-tab-item id="2">即将上映</mt-tab-item>
-		</mt-navbar>
-		 
-		<mt-tab-container v-model="selected">
-		
-		  <mt-tab-container-item id="1">
-			<div class="box"  ref="menuWrapper">
-				<div class="box_content" v-for="(item, index) in in_theaterslist" @click="showMoreMsg(item.id)">
-					<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
-					<div class="box_right">
-						<h2>{{ item.title }}</h2>
-						<Star :score="item.rating.average"></Star>
-						<span>{{ item.rating.average }}分</span><br>
-						<span class="daoyan">导演:{{ item.directors[0].name}}</span><br>
-						<span class="daoyan">
-							<span>
-								主演:<span v-for="(zhuyan, index) in item.casts">{{zhuyan.name}}
-										<span v-if="index===item.casts.length-1"></span>
-										<span v-else>/</span>
-									</span>
-							</span>
-						</span>
-					</div>
-					<div class="btn"><mt-button type="danger" size="small">购票</mt-button></div>
-				</div>
-				<Tag></Tag>
-			</div>
+		<div class="bg">
 			
-		  </mt-tab-container-item>
 		
-		  <mt-tab-container-item id="2">
-		   	<div class="box">
-				<div class="box_content" v-for="(soonitem, index) in coming_soonlist" >
-					<div class="box_img"><img :src="soonitem.images.small" :alt="soonitem.alt"></div>
-					<div class="box_right"  @click="showMoreMsg(soonitem.id)">
-						<h2>{{ soonitem.title }}</h2>
-						<span class="daoyan">导演:{{ soonitem.directors[0].name}}</span><br>
-						<span>类型: {{soonitem.genres.join(', ')}}</span><br>
-						<span class="daoyan">
-							<span>
-								主演:<span v-for="(zhuyan, index) in soonitem.casts">{{zhuyan.name}}
-										<span v-if="index===soonitem.casts.length-1"></span>
-										<span v-else>/</span>
-									</span>
-							</span>	
-						</span>
+			<lb :listImg="listImg"></lb>
+		
+			<div class="container">
+			<mt-navbar v-model="selected">
+			  <mt-tab-item id="1">正在热映</mt-tab-item>
+			  <mt-tab-item id="2">即将上映</mt-tab-item>
+			</mt-navbar>
+			 
+			<mt-tab-container v-model="selected">
+			
+			  <mt-tab-container-item id="1">
+				<div class="box"  ref="menuWrapper">
+					<div class="box_content" v-for="(item, index) in in_theaterslist" @click="showMoreMsg(item.id)">
+						<div class="box_img"><img :src="item.images.small" :alt="item.alt"></div>
+						<div class="box_right">
+							<h2>{{ item.title }}</h2>
+							<Star :score="item.rating.average"></Star>
+							<span>{{ item.rating.average }}分</span><br>
+							<span class="daoyan">导演:{{ item.directors[0].name}}</span><br>
+							<span class="daoyan">
+								<span>
+									主演:<span v-for="(zhuyan, index) in item.casts">{{zhuyan.name}}
+											<span v-if="index===item.casts.length-1"></span>
+											<span v-else>/</span>
+										</span>
+								</span>
+							</span>
+						</div>
+						<div class="btn"><mt-button type="danger" size="small">购票</mt-button></div>
 					</div>
-					<div class="btn">
-						<mt-button type="primary" size="small" :disabled="status" v-model="text" @click="btnclick(index,soonitem)" v-if="indexarr.indexOf(index)!==-1">{{text}}</mt-button>
-						<mt-button type="primary" size="small" v-model="text" @click="btnclick(index,soonitem)" v-else>想看</mt-button>
-					</div>
+					<Tag></Tag>
 				</div>
-				<Tag></Tag>
-			</div> 
-		  </mt-tab-container-item>
-		</mt-tab-container> 
+				
+			  </mt-tab-container-item>
+			
+			  <mt-tab-container-item id="2">
+			   	<div class="box">
+					<div class="box_content" v-for="(soonitem, index) in coming_soonlist" >
+						<div class="box_img"><img :src="soonitem.images.small" :alt="soonitem.alt"></div>
+						<div class="box_right"  @click="showMoreMsg(soonitem.id)">
+							<h2>{{ soonitem.title }}</h2>
+							<span class="daoyan">导演:{{ soonitem.directors[0].name}}</span><br>
+							<span>类型: {{soonitem.genres.join(', ')}}</span><br>
+							<span class="daoyan">
+								<span>
+									主演:<span v-for="(zhuyan, index) in soonitem.casts">{{zhuyan.name}}
+											<span v-if="index===soonitem.casts.length-1"></span>
+											<span v-else>/</span>
+										</span>
+								</span>	
+							</span>
+						</div>
+						<div class="btn">
+							<mt-button type="primary" size="small" :disabled="status" v-model="text" @click="btnclick(index,soonitem)" v-if="indexarr.indexOf(index)!==-1">{{text}}</mt-button>
+							<mt-button type="primary" size="small" v-model="text" @click="btnclick(index,soonitem)" v-else>想看</mt-button>
+						</div>
+					</div>
+					<Tag></Tag>
+				</div> 
+			  </mt-tab-container-item>
+			</mt-tab-container> 
+			</div>
 		</div>
 	</div>
 </template>
@@ -126,7 +130,7 @@ import BScroll from 'better-scroll'
 	    	},
 			getData(){
 				//请求豆瓣热映接口  
-				this.$http.get(api.in_theaters).then(function (response) {
+				this.$http.jsonp(api.in_theaters).then(function (response) {
 			        let data=response.body;
 			        let vm=this;
 			        vm.in_theaterslist = data.subjects;
@@ -135,7 +139,7 @@ import BScroll from 'better-scroll'
 			          console.log(response)
 			    });
 			    //请求豆瓣即将上映接口  
-			    this.$http.get(api.coming_soon).then(function (response) {
+			    this.$http.jsonp(api.coming_soon).then(function (response) {
 			        let data=response.body;
 			        let vm=this;
 			        vm.coming_soonlist = data.subjects;
@@ -196,6 +200,9 @@ import BScroll from 'better-scroll'
 </script>
 
 <style scoped>
+	.bg{
+		background: #FFF;
+	}
 	.container{
 		position: absolute;
 		top: 37%;

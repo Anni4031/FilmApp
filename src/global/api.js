@@ -14,17 +14,17 @@ let url = {
 
 //----------------请注意：如果正式环境，不需要本地json数据模拟，请删除以上代码和api中的模拟接口。----------------
 
-
+let filmApiBaseUrl="http://api.douban.com" 
 export const api = {   
-    "in_theaters":"/v2/movie/in_theaters",  //正在热映 获取电影列表
-    "movieSearch":"/v2/movie/search",    //搜索
-    "coming_soon":"/v2/movie/coming_soon", //即将上映
-    "movietop":"/v2/movie/top250",  //排行250
-    "movie_basic":"/v2/movie/subject/", //电影条目
-    "movie_box":"/v2/movie/us_box", //北美榜
-    "movie_celebrity":"/v2/movie/celebrity/", //影人信息
-    "new_movies":"/v2/movie/new_movies",//新片榜
-    "movie_weekly":"/v2/movie/weekly",//口碑榜
+    "in_theaters":filmApiBaseUrl+"/v2/movie/in_theaters",  //正在热映 获取电影列表
+    "movieSearch":filmApiBaseUrl+"/v2/movie/search",    //搜索
+    "coming_soon":filmApiBaseUrl+"/v2/movie/coming_soon", //即将上映
+    "movietop":filmApiBaseUrl+"/v2/movie/top250",  //排行250
+    "movie_basic":filmApiBaseUrl+"/v2/movie/subject/", //电影条目
+    "movie_box":filmApiBaseUrl+"/v2/movie/us_box", //北美榜
+    "movie_celebrity":filmApiBaseUrl+"/v2/movie/celebrity/", //影人信息
+    "new_movies":filmApiBaseUrl+"/v2/movie/new_movies",//新片榜
+    "movie_weekly":filmApiBaseUrl+"/v2/movie/weekly",//口碑榜
     "hot":url.staticPath+"dataJson/hot.json",//热门
 }
 

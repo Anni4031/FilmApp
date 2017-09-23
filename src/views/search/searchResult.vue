@@ -51,7 +51,7 @@ import tag from '../layout/tag'
       // 搜索结果
       showMoreMsg: function () {
         let par=JSON.parse(JSON.stringify(this.val))
-        this.$http.get(api.movieSearch,{params: par}).then(function (response) {
+        this.$http.jsonp(api.movieSearch,{params: par}).then(function (response) {
           this.search_result = response.body
           console.log(response)
         }).catch(function (response) {
